@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+
+
+    var obj1 = {
+        num:1,
+        sayNum:function (newNum,a,b,c) {
+            alert(this.num);
+            console.log(newNum)
+        }
+    };
+    var num = 20;
+    obj2 = {num:10};
+
+    obj1.sayNum.apply(obj2,[20,30,40]);
+
+    //apply(arg1,arg2)
+
+    //arg1是this要重新指向的对象
+    //arg2 是需要传的参数的数组（把所有要传的参数放在一个数组里面）
+
+</script>
+</body>
+</html>

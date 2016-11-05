@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>判断鼠标进入方向</title>
+</head>
+<body>
+<style>
+    html,body{margin:0;padding:0;}
+    #wrap{width:300px;height:300px;background:#33aa00;margin:50px;display:inline-block;font-size:50px;text-align:center;line-height:300px;}
+</style>
+<div id="wrap">
+    方向反馈
+</div>
+<script type="text/javascript" src="../jq/jquery-1.7.2.min.js"></script>
+<script>
+    $("#wrap").bind("mouseenter mouseleave",
+            function(e) {
+                var w = $(this).width();
+                var h = $(this).height();
+                var mX = e.pageX;
+                var mY = e.pageY;
+
+
+
+                var x = (e.pageX - $(this).offset().left - (w / 2)) * (w > h ? (h / w) : 1);
+
+                var y = (e.pageY - $(this).offset().top - (h / 2)) * (h > w ? (w / h) : 1);
+
+
+
+                console.log(x)
+                console.log(y)
+
+                var direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4;
+
+                var eventType = e.type;
+                var dirName = new Array('上方','右侧','下方','左侧');
+                if(e.type == 'mouseenter'){
+                    $(this).html(dirName[direction]+'进入');
+                }else{
+                    $(this).html(dirName[direction]+'离开');
+                }
+
+            });
+
+    console.log("---------4个角的时候的角度-----------------------")
+    console.log("...x 是临边边长，而 y 是对边边长//返回值的[-π,π] * (180 / Math.PI)转换为角度[180,-180]")
+    console.log(Math.atan2(-10,-10)* (180 / Math.PI) +"左上")
+    console.log(Math.atan2(10,-10)* (180 / Math.PI)+"右上")
+    console.log(Math.atan2(-10,10)* (180 / Math.PI)+"左下")
+    console.log(Math.atan2(10,10)* (180 / Math.PI)+"右下")
+
+
+
+console.log("--------------atan2(y,x)返回值的范围是[-π,π](角度为-180和180),而不是我们习惯的[0,2π]（角度为0-360）")
+    console.log(Math.atan2(-10,-10)* (180 / Math.PI)+180 +"左上")
+    console.log(Math.atan2(10,-10)* (180 / Math.PI)+180+"右上")
+    console.log(Math.atan2(-10,10)* (180 / Math.PI)+180+"左下")
+    console.log(Math.atan2(10,10)* (180 / Math.PI)+180+"右下")
+
+    console.log("-----除以90，再取四舍五入值，使得可以以45°为分界线----------")
+
+
+    console.log(Math.round((Math.atan2(-10,-10)* (180 / Math.PI)+180)/ 90) +"左上")
+    console.log(Math.round((Math.atan2(10,-10)* (180 / Math.PI)+180)/ 90)+"右上")
+    console.log(Math.round((Math.atan2(-10,10)* (180 / Math.PI)+180)/ 90)+"左下")
+    console.log(Math.round((Math.atan2(10,10)* (180 / Math.PI)+180)/ 90)+"右下")
+
+    console.log("-------------对数值进行处理-------------------")
+
+    console.log(Math.round(((Math.atan2(-10,-10)* (180 / Math.PI)+180)/ 90)+ 3)%4+"左上")
+    console.log(Math.round(((Math.atan2(10,-10)* (180 / Math.PI)+180)/ 90)+ 3)%4+"右上")
+    console.log(Math.round(((Math.atan2(-10,10)* (180 / Math.PI)+180)/ 90)+ 3)%4+"左下")
+    console.log(Math.round(((Math.atan2(10,10)* (180 / Math.PI)+180)/ 90)+ 3)%4+"右下")
+
+
+    console.log("------------test--------------------");
+
+    console.log(Math.round(((Math.atan2(-5,-10)* (180 / Math.PI)+180)/ 90)+ 3)%4 +"左")
+    console.log(Math.round(((Math.atan2(5,-10)* (180 / Math.PI)+180)/ 90)+ 3)%4+"左")
+
+    console.log(Math.round(((Math.atan2(-10,-5)* (180 / Math.PI)+180)/ 90)+ 3)%4+"")
+    console.log(Math.round(((Math.atan2(-10,5)* (180 / Math.PI)+180)/ 90)+ 3)%4+"")
+</script>
+
+
+</body>
+</html>>

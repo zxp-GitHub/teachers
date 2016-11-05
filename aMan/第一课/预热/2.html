@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1 { width: 100px; height: 100px; background-color: red;}
+    </style>
+    <script src="../jquery-1.7.2.min.js"></script>
+    <script>
+  /*  window.onload=function () {
+
+    };
+*/
+
+    $(function () {
+        var oDiv = document.getElementById("div1"); //页面的元素
+
+        console.log(oDiv);
+        console.log($("#div1")) //类似与数组的对象，里面包含了页面的元素
+    })
+    </script>
+</head>
+<body>
+
+<div id="div1"></div>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+</body>
+</html>

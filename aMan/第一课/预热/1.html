@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1 { width: 100px; height: 100px; background-color: red;}
+    </style>
+    <script src="../jquery-1.7.2.min.js"></script>
+    <script>
+    window.onload=function () {
+        var oDiv = document.getElementById("div1"); //页面的元素
+        var aLi = document.getElementsByTagName("li"); //页面的元素
+        console.log(oDiv);
+       console.log( $("#div1")) //类似与数组的对象，里面包含了页面的元素
+        console.log(aLi);
+        console.log($("li"));
+
+//        aLi.click(function () {
+//            alert(1)
+//        })
+        /*$("li").click(function () {
+
+        })*/
+       /* oDiv.onclick=function () {
+            alert(1)
+        };*/
+
+        //oDiv = $("#div1")[0]
+        $("#div1")[0].onclick=function () {
+            alert(1)
+        }
+
+    }
+
+
+    </script>
+</head>
+<body>
+
+<div id="div1"></div>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+</body>
+</html>

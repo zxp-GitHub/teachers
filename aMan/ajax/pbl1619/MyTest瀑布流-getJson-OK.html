@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: #f3f2f3;
+			}
+			#main {
+				border: 1px solid red;
+
+				position: relative;
+			}
+			.list {
+				margin: 0 10px;
+				width: 245px;
+				float: left;
+			}
+			img { width: 100%; height: 100%; vertical-align: top }
+			.pic { position: absolute;}
+			.pic:hover { z-index: 1; }
+
+			/*//.pic:hover img { border: 5px solid red; width: 150%; height: 150%; }*/
+			#load { width: 100%; height: 40px; cursor: pointer; text-align: center;}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="main">
+
+
+
+		</div>
+		<div id="load">加载</div>
+
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript">
+			var oWarp = $("#main");
+
+			/*把left和top保存在数组里面*/
+			var arrL = [0,255,510,765,1020];//left是固定的
+			var arrT = [0,0,0,0,0]//top值随着 图片的添加。会发生改变（上一张图片的top+height+10）
+
+
+			fnChange()//在加载数据之前，先确认有几列
+			addData();/*加载数据*/
+
+
+			function fnChange(){
+				var iW = $(window).width();
+				var num = arrL.length;/*现在的列数*/
+
+				if(iW>1020+245){/*可视区可以容纳5行的话*/
+					arrL = [0,255,510,765,1020];
+					arrT = [0,0,0,0,0];
+
+				}else if(iW>1020){
+					arrL = [0,255,510,765];
+					arrT = [0,0,0,0];
+
+				}else {
+					arrL = [0,255,510];
+					arrT = [0,0,0];
+
+				}
+
+				console.log("改变前的列数："+num);
+				console.log("改变后的列数："+arrL.length)
+				if(num===arrL.length){
+					/*不需要改变列数*/
+					return false;
+				}else{
+					/*改变列数*/
+					return true;
+				}
+				//return canChange;
+			}
+
+			$(window).resize(function(){
+				if(fnChange()){/*如果需要改变图片的列数的时候，才执行*/
+
+					$(".pic").each(function(){
+						//getMin() 找到高度最小的列
+						var iNow = getMin();
+
+						/*让当前的图片运动到，重新排序后的位置*/
+						$(this).animate({"left":arrL[iNow],"top":arrT[iNow]});
+
+						/*计算下一个图片的top*/
+						arrT[iNow]=arrT[iNow]+$(this).find("img").height()+10;
+
+					})
+				};
+
+			});
+
+
+			$(window).scroll(function(){
+				var iT = $(window).scrollTop()+$(window).height();
+				var minHeight = arrT[getMin()];
+				console.log(iT);
+
+				console.log(minHeight);
+				if(iT>minHeight){
+					//露出空白的地方， 该加载数据了
+					addData()
+				}
+			});
+
+			function  addData(){
+				$.getJSON("http://www.wookmark.com/api/json/popular?callback=?",{page:2},function(data){
+					console.log(data)
+					for(var i=0;i<data.length;i++){
+
+						var index = getMin();
+						var w = parseInt(data[i].width);
+						var h = parseInt(data[i].height);
+						var iW = 245;
+						//   iH/iW = h/w
+						var iH =parseInt(iW*(h/w));
+
+						$("<div class='pic' style='left: "+arrL[index]+"px;top: "+arrT[index]+"px'><img src='"+data[i].image+"' " +
+								"style='width: "+iW+"px;" +
+								"height:'"+iH+"px; '  /></div>").appendTo(oWarp);
+
+						/*让下一张图片的top=当前的top+图片的height+10（间距）*/
+						arrT[index]=arrT[index]+iH+10;
+
+						//arrT[index]=iH+arrT[index]+10;
+
+					}
+				});
+			}
+
+			/*获取最小高度*/
+			function getMin(){
+				var index = 0;
+				var min = arrT[index];
+				for(var i=0;i<arrT.length;i++){
+					if(arrT[i]<min){
+						min=arrT[i];
+						index = i;
+					}
+				}
+				return index;
+			}
+
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-1.7.2.min.js"></script>
+</head>
+<body>
+
+<form>
+
+    <input type="text" value="text"  disabled="disabled" >
+    <input type="password" value="text">
+    <input type="checkbox" >
+    <input type="checkbox" checked="checked" >
+    <input type="file" />
+    <input type="button" value="button">
+
+    <select>
+
+        <option>1</option>
+        <option selected="selected">2</option>
+        <option>3</option>
+    </select>
+</form>
+<script>
+
+
+
+   /* $("input:password").css("color","red");
+    $("input:button").css("color","green");
+
+    $("input:disabled").css("color","blue");
+
+    console.log($("input:checked"))
+    console.log($(":selected"))*/
+
+   $("input:checkbox").click(function () {
+       console.log($("input:checked"))
+   })
+
+</script>
+
+
+</body>
+</html>

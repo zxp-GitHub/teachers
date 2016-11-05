@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1 { position: absolute; left: 0; top: 0; width: 100px; height: 100px; background-color: orangered;}
+        #div2 { position: absolute; left: 590px; top: 0; width: 100px; height: 100px; background-color: rebeccapurple;}
+
+    </style>
+</head>
+<body>
+
+
+<div id="div1"></div>
+<div id="div2"></div>
+<script src="base.js"></script>
+<script>
+
+    var oDiv = $("div1");
+    var oDiv2 = $("div2");
+
+    fnMove(oDiv,{"left":500},function () {
+        fnMove(oDiv2,{"left":800})
+    });
+
+    //callBack 回调方法， 主要是用来实现链式运动
+    function fnMove(obj,json,callBack) {
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            //通过for in 循环（枚举）改变每一个属性
+            var bOver = true;
+            for(var attr in json){
+                //current 当前的
+                if(attr =="opacity"){
+                    var iCur = parseFloat(getStyle(obj,attr))*100; //当前值
+                }else {
+                    var iCur = parseInt(getStyle(obj,attr)) //当前值
+                }
+
+                var iSpeed = (json[attr] - iCur)/6;
+                /*给速度取整*/
+                iSpeed = iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+
+                if(iSpeed!=0){ //如果有一个属性的速度不为0
+                    bOver =false;
+                    if(attr =="opacity"){
+                        //w3c标准
+                        obj.style[attr]=(iCur+iSpeed)/100;
+                        //兼容ie
+                        obj.style.filter="alpha(opacity:"+(iCur+iSpeed)+")";
+                    }else {
+                        obj.style[attr]=iCur+iSpeed+"px";
+                    }
+                }
+
+            }
+
+            if(bOver){
+                /*整体的运动结束*/
+                clearInterval(obj.timer);
+                //callBack && callBack()
+                if(callBack){
+                    callBack()
+                }
+
+            }
+
+        },30)
+    }
+
+</script>
+</body>
+</html>

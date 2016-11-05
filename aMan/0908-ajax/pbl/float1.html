@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: #f3f2f3;
+			}
+			#main {
+				border: 1px solid red;
+				width: 1225px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			.list {
+				width: 245px;
+				float: left;
+				margin:10px;;
+			}
+			li { list-style: none; min-height: 20px;}
+		</style>
+	</head>
+
+	<body>
+		<ul id="main">
+			<li class="list">
+
+			</li>
+			<li class="list"></li>
+			<li class="list"></li>
+			<li class="list"></li>
+		</ul>
+		<script src="js/jquery-1.7.2.min.js"></script>
+
+		<script>
+			var  aList = $(".list");
+
+			addData();
+
+			$(window).scroll(function(){
+				var iT = $(window).scrollTop()+$(window).height();
+				var minHeight = $(".list").eq(getMin()).height()
+				console.log(iT)
+				console.log(minHeight)
+				if(iT>minHeight){
+					//露出空白的地方， 该加载数据了
+					addData()
+				}
+			});
+
+			function addData(){
+				$.get("pbl.json",function(data){
+
+					for(var i=0;i<data.length;i++){
+						/*var oImg =document.createElement('img');
+						 oImg.src = data[i].src;
+						 document.body.appendChild(oImg)*/
+						var w = parseInt(data[i].width);
+						var h = parseInt(data[i].height);
+						var iW = 245;
+						//iH/iW==h/w
+						//iH == iW*(h/w);
+						var iH = iW*(h/w);
+						$("<img src='"+data[i].src+"' style='height: "+iH+"px' width='"+iW+"px' />").appendTo(aList.eq(getMin()))
+						//getMin() 就是最小高度list的下标
+
+					}
+				});
+			}
+
+			/*求最小高度*/
+			function getMin(){
+				var index = 0; /*我假设最高度的list，他的下标为0*/
+				var minHeight = aList.eq(index).height() /* 最小list 的高度*/
+
+				for(var i=0;i<aList.length;i++){
+					if(aList.eq(i).height()<minHeight){
+						minHeight = aList.eq(i).height();
+						index = i;
+					}
+				}
+
+				console.log(index);
+				return index
+
+			}
+		</script>
+
+	</body>
+
+</html>

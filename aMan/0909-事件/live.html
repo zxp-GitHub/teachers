@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1 { width: 100px; height: 100px; background-color: deeppink}
+    </style>
+
+    <script src="jquery-1.7.2.min.js"></script>
+    <script>
+        //把div的click事件给了document
+        $("#div1").live("click",function () {
+            alert(1)
+        });
+       /* document.onclick=function (ev) {
+            //ev.target到底点的是谁
+            if(ev.target==document.getElementById("div1")){
+                alert(1)
+            }
+        }*/
+        document.body.onclick=function (ev) {
+            //ev.target到底点的是谁
+            if(ev.target==document.getElementById("div1")){
+                alert(1)
+            }
+        }
+
+
+        //有时候不当操作会把委托的事件去掉
+       $(document).off('mousemove')
+
+    </script>
+</head>
+<body>
+
+
+
+<div id="div1"></div>
+
+
+</body>
+</html>

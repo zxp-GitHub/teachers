@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {margin: 0; padding: 0}
+        #cont { width: 500px; margin-top:20px;height: 400px; padding: 20px; border: 1px solid #666}
+        .tit { overflow: hidden}
+        .fl { float: left}
+        .tit  span { color: #999; font-size: 12px; margin-left: 50px; padding-top:5px; }
+        ol { padding: 10px; margin-top: 10px;}
+        li { border-bottom: 1px dashed #ccc; text-indent: 1em; line-height: 2; font-size: 14px;}
+    </style>
+</head>
+<body>
+
+<input type="button" id="btn" value="显示数据" />
+
+<div id="cont">
+    <div class="tit">
+        <strong class="fl">姓名：芳芳</strong>
+        <span class="fl">爱好：看小说</span>
+    </div>
+    <ol>
+        <!--<li>斗破苍芎</li>
+        <li>斗破苍芎</li>
+        <li>斗破苍芎</li>-->
+    </ol>
+
+</div>
+
+
+<script src=" ajax.js"></script>
+<script>
+    var oBtn = document.getElementById("btn");
+    var oCont =  document.getElementById("cont");
+    oBtn.onclick=function () {
+        var time = new Date().getTime();
+
+        ajax("student-info.json?"+time, function(data){
+            alert("成功");
+            console.log(data);
+            var oData = JSON.parse(data);//把json转换成js对象
+            console.log( oData)
+
+            /*通过数组的长度，判断应该显示多少li*/
+            /*"aihaoList":[
+             "天蚕土豆：《斗破苍穹》《舞动乾坤》《大主宰》",
+             "辰东：《完美世界》《遮天》《神墓》",
+             "我爱西红柿：《星辰变》《莽荒记》",
+             "唐家三少：《狂神》《为我独仙》《天珠变》"
+             ]
+             */
+            var str = ""; //拼接li的字符串
+            for(var i=0;i<oData.length;i++){
+                /*数组每循环一次就添加一个li*/
+                str=str+'<li>'+oData[i]+'</li>';
+            }
+            console.log(str);
+
+            /**/
+            oCont.innerHTML = '<div class="tit">' +
+                    '<strong class="fl">姓名：'+oData.name+'</strong>' +
+                    '<span class="fl">爱好：'+oData.aihao+'</span>' +
+                    '</div>' +
+                    '<ol>'+str+'</ol>';
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

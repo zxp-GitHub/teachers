@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Direction-Aware Hover Effect with CSS3 and jQuery" />
+<meta name="keywords" content="hover, css3, jquery, effect, direction, aware, depending, thumbnails" />
+<meta name="author" content="Codrops" />
+
+<!--
+<link rel="stylesheet" type="text/css" href="css/demo.css" />-->
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script></script>
+</head>
+<body>
+<div class="container">
+    <ul id="list" class="da-thumbs">
+        <li> <a href="http://www.jq-school.com"> <img src="images/1.jpg" />
+            <div><span>Menu by Simon Jensen</span></div>
+        </a> </li>
+       <!-- <li> <a href="http://www.jq-school.com"> <img src="images/2.jpg" />
+            <div><span>TN Aquarium by Charlie Gann</span></div>
+        </a> </li>
+        <li> <a href="http://www.jq-school.com"> <img src="images/3.jpg" />
+            <div><span>Mr. Crabs by John Generalov</span></div>
+        </a> </li>
+        <li> <a href="http://www.jq-school.com"> <img src="images/4.jpg" />
+            <div><span>Gallery of Mo 2.Mo logo by Adam Campion</span></div>
+        </a> </li>
+        <li> <a href="http://www.jq-school.com"> <img src="images/5.jpg" />
+            <div><span>Ice Cream - nom nom by Eight Hour Day</span></div>
+        </a> </li>
+        <li> <a href="http://www.jq-school.com"> <img src="images/6.jpg" />
+            <div><span>My Muse by Zachary Horst</span></div>
+        </a> </li>
+        <li> <a href="http://www.jq-school.com"> <img src="images/7.jpg" />
+            <div><span>Natalie & Justin Cleaning by Justin Younger</span></div>
+        </a> </li>
+        <li> <a href="http://www.jq-school.com"> <img src="images/8.jpg" />
+            <div><span>App Preview by Ryan Deshler</span></div>
+        </a> </li>
+        <li> <a href="http://www.jq-school.com"> <img src="images/9.jpg" />
+            <div><span>Cornwall Map by Katharina Maria Zimmermann</span></div>
+        </a> </li>
+        <li> <a href="http://www.jq-school.com"> <img src="images/10.jpg" />
+            <div><span>final AD logo by Annette Diana</span></div>
+        </a> </li>
+        <li> <a href="http://www.jq-school.com"> <img src="images/11.jpg" />
+            <div><span>Land Those Planes by Lee Ann Marcel</span></div>
+        </a> </li>
+        <li> <a href="http://www.jq-school.com"> <img src="images/12.jpg" />
+            <div><span>Seahorse by Trevor Basset</span></div>
+        </a> </li>
+-->
+
+
+    </ul>
+
+
+</div>
+<script type="text/javascript" src="js/jquery-1.12.1.js"></script>
+<!--<script type="text/javascript" src="js/my.jquery.hover.js"></script>-->
+<script type="text/javascript">
+    $(function() {
+        var $item =  $("#list a");
+        var oldX;
+        var oldY;
+        $(document).mousemove(function (ev) {
+            oldX=ev.pageX;
+            oldY=ev.pageY;
+        });
+        
+        $item.mouseenter(function (ev) {
+            //在当前鼠标移进去的a标签里面找到div
+            var $div = $(this).find("div");
+            var mX = ev.pageX;
+            var mY = ev.pageY;
+            console.log(oldY);
+            console.log(mY);
+
+            var boxW = $(this).outerWidth();
+            var boxH = $(this).outerHeight();
+
+            var boxL = $(this).offset().left;//左
+            var boxT = $(this).offset().top;//上
+
+            /*找到右边，和下边*/
+            var boxR = boxL+boxW;
+            var boxB = boxT+boxH;
+
+            var disL = mX -boxL;
+            var disR = boxR - mX;
+            var disT = mY -boxT;
+            var disB = boxB- mY;
+
+           var min =  Math.min(disL,disR,disT,disB);
+         /*   console.log(disL);
+            console.log(disR);
+            console.log(disT);
+            console.log(disB)
+            */
+            switch (min){
+                case disL:
+                    console.log("左");
+                    $div.css({"left":"-100%","top":"0"});
+                    break;
+                case disT:
+                    console.log("上");
+                    $div.css({"left":"0","top":"-100%"});
+                    break;
+                case disR:
+                    console.log("右");
+                    $div.css({"left":"100%","top":0});
+
+                    break;
+                case disB:
+                    console.log("下");
+                    $div.css({"left":"0","top":"100%"});
+                    break;
+                default:
+                    break
+            }
+
+            $div.animate({"left":0,"top":0})
+
+        })
+    })
+</script>
+</body>
+</html>

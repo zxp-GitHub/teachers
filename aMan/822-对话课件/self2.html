@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0; padding: 0;}
+        li { list-style: none}
+        .fl { float: left}
+        .wrap { margin: 20px auto; width: 300px; height: 500px; border-radius: 10px; border: 1px solid #999; box-shadow: 0 0 10px rgba(0,0,0,.7); padding: 10px;}
+        .header { height: 10px; text-align: center}
+        .header span { display: inline-block; width: 40px; height: 10px; background-color: #666; border-radius: 5px;}
+        .msg-wrap { height: 400px; background-color: #eee; margin-top: 20px; padding: 10px; overflow: auto}
+        /*列表*/
+        .msg-wrap li { overflow: hidden; padding: 5px 0; }
+        .msg-wrap img { width: 50px; height: 50px; border-radius: 5px;}
+        .user1 img, .user1 .msg-box { float: left; background-color: #fff}
+        .user2 img, .user2 .msg-box { float: right; background-color: #7f0}
+        .msg-box { max-width: 180px; padding: 10px 5px; border-radius: 5px; line-height: 20px; margin: 10px; overflow: hidden}
+
+            /*控制部分*/
+        .ctrl-wrap { height: 30px; padding-top: 10px;}
+        .select-wrap { width: 60px; line-height: 30px; border: 1px solid #ccc; position: relative; text-align: center; height: 30px; }
+        .user-tit {text-overflow: ellipsis; white-space: nowrap; width: 60px; overflow: hidden}
+        .user-list { position: absolute; bottom: 40px; left: 0; width: 120px;border: 1px solid #ccc; display: none;}
+        .user-list li { background-color: #fff; border-bottom: 1px solid #ccc;}
+
+        #msg-cont { margin: 0 5px; height: 30px; line-height: 30px; text-indent: 5px; width: 160px}
+        #send-btn { width: 60px; border: 1px solid #ccc; padding: 5px;}
+
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="header">
+        <span></span>
+    </div>
+    <div class="msg-wrap">
+        <ul id="msg-list">
+            <li class="user1">
+                <img src="1.jpg"/>
+                <div class="msg-box">hellow</div>
+            </li>
+            <li class="user1">
+                <img src="1.jpg"/>
+                <div class="msg-box">hellow asd 地对地导弹  嘟嘟嘟</div>
+            </li>
+            <li class="user2">
+                <img src="2.jpg"/>
+                <div class="msg-box">hellow</div>
+            </li>
+        </ul>
+    </div>
+    <div class="ctrl-wrap">
+        <div class="select-wrap fl">
+            <p class="user-tit" id="user-tit" data-id="1">莉莉妮特</p>
+            <ul class="user-list" id="user-list">
+                <li data-id="2">史塔克</li>
+                <li data-id="1">莉莉妮特</li>
+            </ul>
+        </div>
+        <input type="text" id="msg-cont" class="fl">
+        <button id="send-btn" class="fl">发送</button>
+    </div>
+</div>
+
+
+<script src="js/base.js"></script>
+
+<script>
+    var oSendBtn = $("send-btn");/*发送按钮*/
+    var oMsgCont = $("msg-cont");/*消息内容*/
+    var oUserTit = $("user-tit");/*用户tit*/
+    var oUserList = $("user-list"); /*用户列表*/
+    var aUser = oUserList.children; //获取所有用户
+    var oMsgList = $("msg-list");
+
+/*  切换用户*/
+    oUserTit.onclick=function () {
+        oUserList.style.display="block"
+    };
+
+/*给所有用户添加点击事件*/
+    for(var i=0;i<aUser.length;i++){
+        aUser[i].onclick=function () {
+            /*让列表隐藏*/
+            oUserList.style.display="none";
+            /*让tit里面的内容，=选中的内容*/
+            oUserTit.innerHTML = this.innerHTML;
+            /*让tit里面的data-id，等于当前点击的li（this）的data-id*/
+            oUserTit.setAttribute("data-id",this.getAttribute("data-id"))
+
+        }
+    }
+
+/*当发送按钮点击的时候*/
+    oSendBtn.onclick=function () {
+        var val = oMsgCont.value;
+        if(val!=""){
+            /*发送*/
+            //把val添加到oMsgList里面
+            //要找到当前是哪个用户
+            var userId = oUserTit.getAttribute("data-id");//用户id
+
+            /*创建li*/
+            var oLi = document.createElement("li");
+            oLi.className="user"+userId;//通过用户id个li加不同样式，显示不同的效果
+
+            oLi.innerHTML='<img src="'+userId+'.jpg"> <div class="msg-box">'+val+'</div>';
+            oMsgList.appendChild(oLi);
+            /*设置滚动高度，让最后一条消息，在最下面显示*/
+            oMsgList.parentNode.scrollTop=1111111111;
+            /*清除之前输入的内容*/
+            oMsgCont.value = ""
+        }else {
+            /*什么都没输入*/
+        }
+    }
+
+</script>
+</body>
+</html>

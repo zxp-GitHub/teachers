@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0 ; padding: 0;text-align: center;}
+        .header,.footer { line-height: 40px; background-color: #ccc; }
+        .main { margin: 20px auto; width: 1000px; padding:50px; background-color: #eee; }
+        .section { margin: 20px 0; height: 400px; border: 1px solid #999;}
+        .section:nth-child(1) { background-color: #ee5555}
+        .section:nth-child(2) { background-color: skyblue}
+        .section:nth-child(3) { background-color: seagreen}
+        .section:nth-child(4) { background-color: sandybrown}
+        .section:nth-child(5) { background-color: slateblue}
+        .section:nth-child(6) { background-color: fuchsia}
+        #go-top { position: fixed; right: 10px; bottom: 10px; height: 60px; width: 60px; line-height: 60px; text-align: center; background-color: #ee5555;color: #fff; font-weight: bold; display: none}
+        #nav-list { position: fixed; font-size: 12px; top: 50%; left:10px; width: 50px; margin-top: -150px; display: none}
+        #nav-list li { height: 50px; line-height: 50px; text-align: center;
+            position: relative;
+            border: 1px solid #999; margin-top: -1px; cursor: pointer}
+        #nav-list .active { }
+        #nav-list span { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: none;background-color: #ee5555; color: #fff}
+        #nav-list .active span { display: block}
+    </style>
+</head>
+<body>
+
+
+    <div class="header">header</div>
+    <div class="main">
+        <div class="section">
+            <h3>服装</h3>
+            section1
+        </div>
+        <div class="section">
+            <h3>手机</h3>
+            section2
+        </div>
+        <div class="section">
+            <h3>食品</h3>
+            section3
+        </div>
+        <div class="section">
+            <h3>运动</h3>
+            section4
+        </div>
+        <div class="section">
+            <h3>家电</h3>
+            section5
+        </div>
+        <div class="section">
+            <h3>居家</h3>
+            section6
+        </div>
+
+
+    </div>
+    <div class="footer">footer</div>
+
+
+    <a href="javascript:;" id="go-top">Top</a>
+    <ol id="nav-list">
+        <li class="active">1F<span>服装</span></li>
+        <li>2F<span>手机</span></li>
+        <li>3F<span>食品</span></li>
+        <li>4F<span>运动</span></li>
+        <li>5F<span>家电</span></li>
+        <li>6F<span>居家</span></li>
+    </ol>
+
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+    var $goTop = $("#go-top");
+    var $navList = $("#nav-list");
+    var $navOpt = $("#nav-list li");
+    var $section = $(".section");
+    testScrollTop();
+    $(window).scroll(function () {
+        //console.log($(window).scrollTop());
+        testScrollTop()
+    });
+    /*返回顶部*/
+    $goTop.click(function () {
+        //$(window).animate({"scrollTop":0})
+        //不能给window加载scrollTop的运动
+        //body谷歌
+        //html 火狐 ie
+        $("body,html").animate({"scrollTop":0});
+
+    });
+    /*左侧导航栏事件*/
+    $navOpt.click(function () {
+       $(this).addClass("active").siblings().removeClass("active")
+        var index = $(this).index();//当前点击的li 的下标（楼层）
+        var iT = $section.eq(index).offset().top//当前楼层距离页面顶部的距离
+
+        //让滚动高度运动到当前楼层的位置
+        $("body,html").animate({"scrollTop":iT});
+    });
+
+
+
+
+
+
+
+    function testScrollTop() {
+        /*判断滚动高度，让返回顶部按钮隐藏显示*/
+
+        var iScrollT = $(window).scrollTop();
+        if(iScrollT>300){
+            $goTop.fadeIn();
+            $navList.fadeIn()
+        }else {
+            $goTop.fadeOut();
+            $navList.fadeOut()
+        }
+        /*判断楼层(每一个)*/
+
+        $section.each(function () {
+
+            var iT = $(this).offset().top//每一个楼层的距离页面顶部的距离
+            if(iScrollT>=iT){
+                console.log($(this).index());
+                $navOpt.removeClass("active").eq($(this).index()).addClass("active")
+            }
+
+        });
+
+    };
+
+
+
+
+</script>
+</body>
+</html>

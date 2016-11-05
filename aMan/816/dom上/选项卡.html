@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0; padding: 0;}
+        li { list-style: none}
+        ul,#content { width: 500px; margin: 10px auto; border: 1px solid #ccc}
+        #option { height: 40px; line-height: 40px; text-align: center;}
+        #option li { float: left; width: 25%; margin-left: -1px;  border-right: 1px solid #ccc; cursor: pointer}
+        #option .active { background-color: #999; color: #fff}
+        #content { height: 300px; padding: 0 20px;}
+
+    </style>
+</head>
+<body>
+<ul id="option">
+    <li class="active">山东在哪？</li>
+    <li>山西在哪？</li>
+    <li>河南在哪？</li>
+    <li>河北在哪？</li>
+</ul>
+
+
+
+<div id="content">
+    山东在那个山的东边
+
+</div>
+
+
+<script src="base.js"></script>
+<script>
+    var arr = ["山东在那个山的东边","山西在那个山的西边",
+        "河南在那个河的南边","河北在那个河的北边"];
+
+    var oWrapOpt = $("option");
+    var aOption = oWrapOpt.getElementsByTagName("li");
+    var oCont = $('content');
+    var len = aOption.length;
+
+    for(var i=0;i<len;i++){
+        /*给每一个选项都加一个index属性，等于他自己的下标*/
+        aOption[i].index = i; //把自己的下标保存在index属性里面
+
+        aOption[i].onclick=function () {
+            /*把所有的active样式干掉*/
+            for(var j=0;j<len;j++){
+                aOption[j].className = "";
+            }
+            /*给当前点击的选项添加active样式*/
+            this.className = "active";
+
+            /*切换content里面的内容*/
+            //this.index 就是当前点击的选项的 下标
+            oCont.innerHTML = arr[this.index]
+        }
+
+
+    }
+
+
+
+
+</script>
+</body>
+</html>

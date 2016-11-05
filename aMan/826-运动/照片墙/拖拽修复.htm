@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+
+* { margin:0; padding:0; }
+#ul1 { width:1100px;position:relative; margin:10px auto; height: 500px; }
+#ul1 li {width:250px; height:150px; float:left; list-style:none; margin:10px;}
+img { width: 100%; height: 100%; user-select: none; -webkit-user-select: none}
+#ul1 .active {border:2px dashed #77f;}
+
+
+</style>
+<script src="move.js">
+</script>
+<script>
+
+window.onload=function ()
+{
+	function setCss(obj,json){
+		for(var attr in json){
+			obj.style[attr] = json[attr]+"px";
+		}
+	}
+
+
+	var oUl=document.getElementById('ul1');
+	var aLi=oUl.getElementsByTagName('li');
+	var iZindex = 1;
+	var iNow =-1;
+	var objIndex =-1;
+	var oldX = 0;
+	var oldY = 0;
+
+	var array = [];
+	
+	//布局转化
+	for(i=0;i<aLi.length;i++)
+	{
+		array.push({left:aLi[i].offsetLeft,top:aLi[i].offsetTop})
+		setCss(aLi[i],{left:aLi[i].offsetLeft,top:aLi[i].offsetTop});
+	}
+
+	for(i=0;i<aLi.length;i++)
+	{
+		aLi[i].style.position='absolute';
+		aLi[i].style.margin='0';
+
+	}
+	
+
+
+	for(i=0;i<aLi.length;i++)
+	{
+		setDrag(aLi[i],i);//拖拽
+	}
+
+	//拖拽方法
+	function setDrag(obj,inow)
+	{
+		obj.onmousedown = function(event){
+			var event = window.event ||event;
+			objIndex = inow;
+
+			obj.style.zIndex = iZindex++
+			var disX = event.clientX - obj.offsetLeft ;
+			var disY = event.clientY - obj.offsetTop ;
+
+			document.onmousemove = function(event){
+				var event = window.event ||event;
+
+				var l = event.clientX - disX　;
+				var t = event.clientY - disY;
+
+				setCss(obj,{"left":l,"top":t});
+
+
+				iNow = testMin (obj);
+
+				if(iNow!=-1){
+					for(var i=0;i<aLi.length;i++)
+					{
+						aLi[i].className = ""
+
+					}
+					aLi[iNow].className = "active"
+				}
+				return false;
+
+			};
+
+			document.onmouseup = function(){
+
+				for(var i=0;i<aLi.length;i++)
+				{
+					aLi[i].className = ""
+				}
+
+				/*拖动的图片坐标*/
+				var oldX =array[objIndex].left;
+				var oldY =array[objIndex].top;
+				//console.log(objIndex)
+				if(iNow!=-1){
+
+					/*交换的图片坐标*/
+					var iX =array[iNow].left;
+					var iY =array[iNow].top;
+
+					/*交换位置*/
+					fnMove(obj,{"left":iX,"top":iY})
+					fnMove(aLi[iNow],{"left":oldX,"top":oldY})
+
+
+					/*交换数值内部坐标*/
+					array[objIndex] = {"left":iX,"top":iY};
+					array[iNow] = {"left":oldX,"top":oldY};
+
+					//因为图片交互后，坐标改变了，索引没有改变，所以需要改变坐标位置
+
+				}else{
+					//如果没有碰撞，就回到原位
+					fnMove(obj,{"left":oldX,"top":oldY})
+				}
+
+				document.onmousemove = null;
+				document.onmouseup= null;//可有可无
+			};
+
+			return false;//阻止默认事件
+
+		}
+	}
+
+
+	//获取最小距离
+	function testMin (obj){
+		var x1 = obj.offsetLeft;
+		var y1 = obj.offsetTop;
+
+		var x2 = 0;
+		var y2 = 0;
+		var dis = 0;
+		var minDis = 100000;//最小距
+		var index = -1; //最小距离的方块的索引，如果没有碰撞，会返回-1
+		for(var i=0;i<aLi.length;i++){
+			if(aLi[i]!=obj){//要对比距离的方块，不能是本身
+				if(pengZhuang(obj,aLi[i])){
+					x2 = aLi[i].offsetLeft;
+					y2 = aLi[i].offsetTop;
+
+					dis = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));//两个方块的距离
+
+					if (minDis > dis) {//如果当前的距离，小于最小距离
+						minDis = dis; //让最小距离等于当前的距离
+						index = i; //改变最小距离的方块的索引
+					}
+				}
+
+			}
+		}
+
+		return index
+
+
+	}
+//碰撞检测
+	function pengZhuang(obj1,obj2){
+
+		var l1 = obj1.offsetLeft;
+		var lw1 = obj1.offsetLeft+obj1.offsetWidth;
+
+		var t1 = obj1.offsetTop;
+		var th1 = obj1.offsetTop+obj1.offsetHeight;
+
+
+		var l2 = obj2.offsetLeft;
+		var lw2 = obj2.offsetLeft+obj2.offsetWidth;
+
+		var t2 = obj2.offsetTop;
+		var th2 = obj2.offsetTop+obj2.offsetHeight;
+
+
+		//左边 lw1<l2
+		//左边 l1>lw2
+		//左边 th1<t2
+		//左边 t1>th2
+		if(lw1<l2 ||l1>lw2 ||th1<t2 ||t1>th2){
+			return false;
+		}else {
+			console.log("碰撞");
+			return true;
+		}
+
+	}
+	
+
+	
+}
+
+</script>
+</head>
+
+
+<body>
+<ul id="ul1">
+    <li><img src="img/1.jpg" /></li>
+    <li><img src="img/2.jpg" /></li>
+    <li><img src="img/3.jpg" /></li>
+    <li><img src="img/4.jpeg" /></li>
+    <li><img src="img/5.jpg" /></li>
+    <li><img src="img/6.jpg" /></li>
+    <li><img src="img/7.jpg" /></li>
+    <li><img src="img/8.jpg" /></li>
+    <li><img src="img/9.jpg" /></li>
+	<li><img src="img/10.jpeg" /></li>
+	<li><img src="img/11.jpg" /></li>
+	<li><img src="img/12.jpg" /></li>
+
+</ul>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+/*
+  var fn = function () {
+      alert(1)
+  }();*/
+
+
+    (function () {
+        alert(1)
+    })();
+
+    (function () {
+        alert(2)
+    }());
+
+
+    !function () {
+        alert(3)
+    }()
+
+
+
+var a = 10;
+function fn(){
+    alert(a);
+    var a = 1;
+};
+fn()
+
+
+</script>
+</body>
+</html>

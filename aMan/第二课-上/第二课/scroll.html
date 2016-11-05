@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0 ; padding: 0;text-align: center;}
+        .header,.footer { line-height: 40px; background-color: #ccc; }
+        .main { margin: 20px auto; width: 1000px; background-color: #eee; }
+        .section { margin: 10px 0; height: 300px; border: 1px solid #999;}
+        #go-top { position: fixed; right: 10px; bottom: 10px; height: 60px; width: 60px; line-height: 60px; text-align: center; background-color: #ee5555;color: #fff; font-weight: bold;}
+    </style>
+</head>
+<body>
+
+    <div class="header">header</div>
+    <div class="main">
+        <div class="section">section1</div>
+        <div class="section">section2</div>
+        <div class="section">section3</div>
+        <div class="section">section4</div>
+
+    </div>
+    <div class="footer">footer</div>
+
+
+    <a href="javascript:;" id="go-top">Top</a>
+
+
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+    var $goTop = $("#go-top");
+    testScrollTop();
+    $(window).scroll(function () {
+        console.log($(window).scrollTop());
+        testScrollTop()
+    });
+    $goTop.click(function () {
+        $(window).scrollTop(0)
+    });
+
+    function testScrollTop() {
+        /*判断滚动高度，让返回顶部按钮隐藏显示*/
+        if($(window).scrollTop()>300){
+            $goTop.fadeIn()
+        }else {
+            $goTop.fadeOut()
+        }
+    }
+
+
+</script>
+</body>
+</html>

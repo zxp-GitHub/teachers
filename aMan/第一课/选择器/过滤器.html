@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<ul id="wrap">
+    <li><h3 class="tit">说给自己听</h3></li>
+    <li class="tit"><p>--------三毛</p></li>
+    <li><p>如果有来生，</p></li>
+    <li><p>要做一棵树，</p></li>
+    <li class="li4"><p>站成永恒， </p></li>
+    <li><p>没有悲欢的姿势。 </p></li>
+    <li><p>一半在尘土里安详，</p></li>
+    <li><p data-id="2">一半在风里飞扬， </p></li>
+    <li><p data-id="1">一半洒落阴凉， </p></li>
+    <li><p data-id="3">一半沐浴阳光。</p></li>
+    <li><p>非常沉默非常骄傲 </p></li>
+    <li>
+        <p data-id="2">从不依靠 </p>
+        <a>从不寻找</a>
+    </li>
+    <li>
+        <p data-id="2">总是依靠 </p>
+        <a>总是寻找</a>
+    </li>
+</ul>
+
+<script>
+
+    //$("li:not(.li4)").css("color","red");
+   // $("li").not(".li4").css("color","red")
+    //$("li").eq(1).css("color","green")
+   // $("li").first().css("color","blue")
+   // $("li").has(".tit").css("color","blue")
+
+    //console.log($("li").find("h3"));
+
+    //has判断的是元素内部有没有其他元素
+    //not判断的是元素本身
+    $("li").click(function () {
+        $("a").css("color","#000");
+        $(this).find("a").css("color","red");
+
+        console.log($(this).hasClass("li2224"))
+    })
+
+
+
+
+</script>
+
+
+</body>
+</html>

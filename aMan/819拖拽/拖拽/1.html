@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1 { background: url("cc.gif") no-repeat 0 0 ; height: 80px; width: 80px; position: absolute; left: 0; top: 0;}
+    </style>
+</head>
+<body>
+
+<div id="div1"></div>
+<script src="base.js"></script>
+<script>
+    var oDiv = $("div1");
+    /*1、鼠标按下*/
+    oDiv.onmousedown=function () {
+
+        console.log("down");
+        /*2、当鼠标按下的时候，添加mousemove*/
+        oDiv.onmousemove=function (event) {
+            event = event || window.event; //事件兼容
+
+            //鼠标的坐标
+            var mX = event.clientX;
+            var mY = event.clientY;
+
+            //3、让div的left和top等于鼠标的坐标
+            oDiv.style.left = mX+"px";
+            oDiv.style.top = mY+"px";
+            
+        };
+        document.onmouseup=function () {
+            /*4、当鼠标抬起的时候,去掉oDiv的move事件*/
+            oDiv.onmousemove = null;
+        }
+
+    };
+
+    //1、鼠标在document上发生mouseup 事件时，需要大oDiv的mousemove事件干掉
+    //2、鼠标移动到div的外面是，div就不跟鼠标走了
+
+</script>
+</body>
+</html>

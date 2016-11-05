@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div { }
+        #div1 { width: 100px; padding-top: 1000px; height: 100px; position: relative;  background-color: skyblue}
+        #div2 { width: 50px; height: 50px;  background-color: gold}
+    </style>
+</head>
+<body>
+<script src="jquery-1.7.2.min.js"></script>
+
+
+
+<div id="div1">
+    <div id="div2"></div>
+</div>
+<script>
+    console.log($("#div2").offset());//{top:"",left:""}
+    console.log($("#div2").offset().top);
+    console.log($("#div2").position().top);
+
+    //position 是相对也元素定位父级的偏移 ===offsetLeft
+    //offset 元素是相对月页面的偏移
+    //元素本身有没有定位并不影响
+
+</script>
+</body>
+</html>

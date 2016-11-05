@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .main { margin: 0 auto; width: 888px }
+        .list { border: 1px solid red; min-height: 50px; float: left; width: 200px; margin: 0 10px;  }
+
+
+    </style>
+</head>
+<body>
+
+<div class="main">
+    <div class="list"></div>
+    <div class="list"></div>
+    <div class="list"></div>
+    <div class="list"></div>
+</div>
+
+
+<script src="js/jquery-1.7.2.min.js"></script>
+
+<script>
+    var $list =  $(".list");
+    $.get("pbl.json",function (data) {
+        console.log(data)
+
+
+        for(var i=0;i<data.length;i++){
+            //data[i].width  =>200
+            //data[i].height=>?
+             iH = parseInt(data[i].height)*(200/parseInt(data[i].width))
+
+            //获取最小高度的list
+            var minIndex = getMin()
+            //获取到所有的图片，放在最小高度的list里面
+            $('<img src="'+data[i].src+'" width="200" height="'+iH+'"  />').appendTo($list.eq(minIndex))
+
+        }
+
+
+    });
+    
+    function getMin() {
+        var index = 0;
+        var min = 999999999; //min = $list.eq(index).height()
+        $list.each(function () {
+            //console.log($(this).height()) 找到list的高度
+            if($(this).height()<min){
+                min = $(this).height();
+                index = $(this).index()
+            }
+
+        });
+        console.log(min);
+        console.log(index)
+        //把最小高度的list的下标返回出去
+        return index
+        
+    }
+</script>
+</body>
+</html>

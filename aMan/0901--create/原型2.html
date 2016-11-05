@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+    function Person(name,age) {
+
+        /*私有属性*/
+        this.name = name;
+        this.age = age;
+       
+        //this=>(用Person实例出来的对象)  --->zhangsan
+    }
+
+    /*公用属性*/
+    Person.prototype.sayName=function () {
+        alert(this.name);
+        //this=>(用Person实例出来的对象)  --->zhangsan
+    };
+
+
+    var zhangsan = new Person("zhangsan","28");
+    console.log(zhangsan);
+
+
+    var huge = new Person("胡歌","30");
+    console.log(huge);
+
+
+    Person.prototype.sayName=function () {
+        alert(this.name+"升级版");
+        //this=>(用Person实例出来的对象)  --->zhangsan
+    };
+
+    zhangsan.sayName();
+    huge.sayName();
+
+    console.log(zhangsan.sayName === huge.sayName);
+
+
+</script>
+</body>
+</html>

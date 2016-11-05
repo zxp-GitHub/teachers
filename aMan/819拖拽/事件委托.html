@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div { margin: 10px; border: 1px solid #ccc}
+    </style>
+</head>
+<body>
+
+
+<button id="btn">添加</button>
+<!--
+<div>click me  remove</div>-->
+
+<script>
+
+    var oBtn = document.getElementById("btn")
+    oBtn.onclick=function () {
+        /*创建一个div放在页面里面*/
+        var oDiv = document.createElement("div");
+        oDiv.innerHTML="click me  remove";
+        oDiv.className="can-remove";
+        document.body.appendChild(oDiv)
+    };
+
+    /*事件委托，把can-remove的div事件委托给document*/
+    document.onclick=function (event) {
+        //当document被点击的时候，看看target 是不是div
+        //如果是div，说明点击的就是div，把div 删除了
+        console.log(event.target);
+        if(event.target.className =="can-remove"){
+           // console.log("删除目标元素")
+            document.body.removeChild(event.target)
+        }
+    }
+
+</script>
+
+</body>
+</html>

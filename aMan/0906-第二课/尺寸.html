@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div { width: 100px; height: 100px; margin: 50px; padding: 50px; border: 50px solid #ccc; background-color: #666;}
+
+    </style>
+</head>
+<body>
+
+<div id="div"></div>
+
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+
+    console.log("height:"+$("#div").height());//height
+    console.log("innerHeight:"+$("#div").innerHeight());//height+padding
+    console.log("outerHeight:"+$("#div").outerHeight()) //height+padding+border
+    console.log("outerHeight(true):"+$("#div").outerHeight(true)) //height+padding+border+margin
+
+
+</script>
+</body>
+</html>

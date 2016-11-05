@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {width:20px; height:20px; position:absolute;
+            border-radius: 50%;
+            box-shadow: 0 0 3px rgba(0,0,255,.3),inset 0 0 10px rgba(0,0,255,.1);
+        }
+    </style>
+
+</head>
+
+<body style="background-color: #99f">
+<div></div>
+<div></div>
+
+<script>
+    document.onmousemove=function (event) {
+        /*兼容*/
+        event = event ||window.event;
+        /*找到 鼠标的坐标，创建一个 圈*/
+        var mX = event.clientX ;
+        var mY = event.clientY ;
+
+        /*创建圆圈*/
+        var oDiv = document.createElement("div");
+        oDiv.style.left = mX +"px";
+        oDiv.style.top = mY +"px";
+
+        /*把圈放在页面里面*/
+        document.body.appendChild(oDiv);
+
+        /*1秒以后，干掉oDiv，不然div太多了，会很卡
+        * */
+        setTimeout(function () {
+            document.body.removeChild(oDiv)
+        },1000)
+
+    }
+
+
+    console.log(0.3-0.1)
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+
+
+<button>button</button>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+
+    $("button").click(function () {
+        //get("pbl.json",function(data){})
+        $.get("pbl.json",function (data) {
+            console.log(typeof data)
+            //JSON.parse(data)//只能接受一个json的字符串
+        },"json")
+    })
+
+    /*
+     url:URL地址
+
+     data:待发送 的参数，是js对象的格式{name:1,password:2}，
+                    （之前ajax方用的是"name=1&password=2"）
+
+     callback:载入成功时回调函数。
+
+     type:返回内容格式 json, text(默认的是json)
+
+     */
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+    var str = "www.163abc@qq16_19.com";
+
+    var reg1 = /^[a-zA-Z0-9]{3,12}\.\w+@\w+\.[a-z]{2,5}$/;
+    var reg2 = /^\w+\.\w+@\w+\.[a-z]{2,5}$/;
+
+    //str.search()
+
+    console.log(reg2.test(str));
+
+//名字只能包含数字、字母和下划线，数字不可以开头，长度不低于6，不高于20
+//敏感词过滤
+
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1 { width: 100px; height: 100px; background: red;}
+    </style>
+</head>
+<body>
+
+<div id="div1"></div>
+<script>
+
+
+    var oDiv = document.getElementById("div1");
+
+    oDiv.onclick=function (event) {
+        //console.log(event);
+        //console.log(arguments);
+
+        alert("班长被打了");
+
+        alert("大家赶来，看热闹");
+    };
+    console.log(oDiv.onclick);
+
+    oDiv.onclick(event)
+</script>
+</body>
+</html>

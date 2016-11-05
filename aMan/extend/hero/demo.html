@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .hero { width: 500px; margin: 20px; text-align: center}
+        .name,.show,.stop { border: 1px solid #999; cursor: pointer; line-height: 30px;  }
+        button { margin: 0 50px;}
+    </style>
+</head>
+<body>
+
+<div id="hero-cont">
+
+</div>
+<script>
+    
+    function Person(name,sex,src) {
+        this.name = name;
+        this.sex = sex;
+        this.src = src;
+    }
+    Person.prototype.sayName=function () {
+        alert(this.name)
+    };
+    Person.prototype.init=function () {
+        this.element = document.createElement("div");
+        this.element.innerHTML = '<div class="name">' +
+                '<strong>名字：'+this.name+'</strong>' +
+                '<span>性别：'+this.sex+'</span>' +
+                '</div><div><img src="'+this.src+'"></div>';
+
+        document.body.appendChild(this.element);
+        this.bindEvent()
+    };
+    Person.prototype.bindEvent=function () {
+        var oImg = this.element.getElementsByTagName("img")[0];
+        var that = this;
+        oImg.onclick=function () {
+            that.sayName()
+        }
+    };
+
+    var wangyu = new Person("wangyu","男","person2.jpg");
+    wangyu.init()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function Hero(name,sex,skill,skillSrc) {
+        /*私有的属性*/
+        this.name = name;
+        this.sex = sex;
+        this.skill = skill;
+        this.skillSrc = skillSrc;
+    }
+
+    Hero.prototype.sayName=function () {
+        alert(this.name)
+    };
+
+    Hero.prototype.init=function () {
+
+        this.element = document.createElement("div");
+        this.element.className = "hero";
+        this.element.innerHTML='<div class="name">' +
+                '<strong>姓名：'+this.name+'</strong>' +
+                '<span>性别：'+this.sex+'</span>' +
+                '</div>' +
+                '<div class="pic"><img src="'+this.skillSrc+'.jpg"></div>' +
+                '<button class="show">展示技能</button>' +
+                '<button class="stop">停止展示</button>';
+
+        oCont.appendChild(this.element);
+        this.bindEvent()//绑定事件
+
+    };
+    Hero.prototype.bindEvent=function () {
+        var that = this;
+        /*技能的图片*/
+        var oImg = this.element.getElementsByTagName("img")[0];
+        /*技能按钮*/
+        var aBtn = this.element.getElementsByTagName("button");
+
+        /*绑定技能事件*/
+        aBtn[0].onclick=function () {
+            oImg.src = that.skillSrc+".gif"
+        };
+        aBtn[1].onclick=function () {
+            oImg.src = that.skillSrc+".jpg"
+        };
+        oImg.onclick=function () {
+            alert(that.skill)
+        }
+
+    };
+
+//    var oCont = document.getElementById("hero-cont");
+//    var oHero =new Hero("lv","男","绿大锤","lu");
+//
+//    oHero.init();
+//
+//
+//    var oHero =new Hero("关二爷","男","行天破","guan");
+//
+//    oHero.init();
+
+
+
+
+</script>
+</body>
+</html>

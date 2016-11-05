@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1 { width: 200px; height: 100px; background: #ccc;}
+        #div2 { width: 400px; height: 300px; background: #ccc; margin: 10px;}
+    </style>
+</head>
+<body>
+<div id="div1" ></div>
+<div id="div2" ></div>
+<script src="base.js"></script>
+<script>
+    
+    /*function getEleById(str) {
+        var obj = document.getElementById(str);
+        return obj
+    }*/
+ /*   var oDiv = document.getElementById("div1");
+
+    console.log(oDiv);
+
+*/
+
+    var oDiv = $("div1");//document.getElementById("div1");
+    var oDiv2 = $("div2");
+
+    oDiv.onclick=function () {
+        this.innerHTML = "<strong>123</strong>";
+    };
+    
+    
+    //var iH = oDiv.style.height;
+   // var iH = window.getComputedStyle(oDiv,null)["height"];
+    //console.log(iH);
+
+    var iW = getStyle(oDiv2,"width");
+    console.log(iW);
+    
+    function getStyle(obj,attr) {
+        //获取谁的属性：obj
+        //获取什么属性:attr
+        console.log(obj);
+        console.log(attr);
+
+        var prop ;
+
+        //判断浏览器是否支持getComputedStyle属性
+        if(window.getComputedStyle){
+            prop = window.getComputedStyle(obj,null)[attr];
+        }else {
+            //ie低版本的方法
+            prop = obj.currentStyle[attr];
+        }
+
+        return prop
+
+    }
+
+
+</script>
+</body>
+</html>

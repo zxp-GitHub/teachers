@@ -1,0 +1,23 @@
+
+a { color: #38f}
+.icon { background: url("../images/icon.png") no-repeat 0 0;height: 16px;width: 16px;}
+.reg-wrap { width: 400px; margin: 20px auto; border: 1px solid #ccc; padding: 50px;}
+.form-list {}
+.form-item  {height:52px; border: 1px solid #ccc;  }
+.item-tit { width: 125px; font-size: 14px; line-height: 52px;float: left; text-align: center; color: #666;letter-spacing: 5px;}
+.item-cont { font-size: 12px; height: 20px; padding: 16px 5px; width: 150px; background-color: transparent; float: left}
+.form-item .icon { float: right; display: none; background-position: 0 -117px;  margin: 20px 20px 0 0  }
+.error-item { border-color: #e22}
+
+.input-tip { visibility: hidden ;height: 32px; line-height: 32px;color: #999;}
+.input-tip .icon { background-position: 0 -100px; margin-right: 10px; margin-top: 8px; float: left }
+.input-tip p {  float: left}
+.error-tip { color: #e22;visibility:visible}
+.error-tip .icon {background-position: -17px -117px; }
+
+
+#code-pic { float: right; width: 110px; background-color: #ccc; line-height: 50px; margin-top: 1px; margin-right: 1px; text-align: center; font-size: 22px; letter-spacing: 5px; color: #666; font-style: italic}
+
+.check-item { padding: 10px 5px;}
+
+#submit-btn { width: 100%; height: 54px; background-color: #e22; line-height: 54px; color: #fff; letter-spacing: 4px; font-size: 16px; }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {position: absolute; left: 20px; top: 20px; }
+        #div1 { width: 100px; height: 100px; top: 1000px; background-color: skyblue}
+        #div2 { width: 50px; height: 50px; background-color: gold}
+    </style>
+</head>
+<body>
+<script src="jquery-1.7.2.min.js"></script>
+
+
+
+<div id="div1">
+    <div id="div2"></div>
+</div>
+<script>
+    console.log($("#div2").offset().top);
+    console.log( $("#div2").position().top)
+
+</script>
+</body>
+</html>

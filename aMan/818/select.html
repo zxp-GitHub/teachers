@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0; padding: 0;}
+        .select-wrap { margin: 0 auto; width: 300px;line-height: 30px;}
+
+        li { list-style: none; border-bottom: 1px solid #ccc;padding: 0 20px; cursor: pointer}
+        li:hover { background-color: skyblue}
+        #select-title { border: 1px solid #ccc; padding:0 20px; cursor: pointer; position: relative}
+        #select-title:after{ content: ""; position: absolute; right: 10px; top: 10px; width: 0; height: 0; border: 8px solid transparent; border-top-color: #ccc;}
+        #select-list { border: 1px solid #ccc; margin-top: 10px; display: none}
+    </style>
+</head>
+<body>
+
+
+<select>
+    <option>HTML5</option>
+    <option>css3</option>
+    <option>Javascript</option>
+    <option>JQ</option>
+    <option>react</option>
+</select>
+<div class="select-wrap">
+
+    <div id="select-title">HTML5</div>
+
+    <ul id="select-list">
+        <li>HTML5</li>
+        <li>css3</li>
+        <li>Javascript</li>
+        <li>JQ</li>
+        <li>react</li>
+    </ul>
+</div>
+
+<script src="base.js"></script>
+<script>
+    var oTit = $("select-title");
+    var oList = $("select-list");
+    var aLi = oList.children;
+
+    oTit.onclick=function (event) {
+        oList.style.display="block";
+
+        /*处理ie事件的兼容*/
+        event = event || window.event;
+
+        if(event.stopPropagation){
+            event.stopPropagation();//阻止事件冒泡 w3c标准
+        }else {
+            event.cancelBubble=true;//IE的方式
+        }
+
+
+    };
+
+    /*给所有的li都加一个点击事件*/
+   for(var i=0;i<aLi.length;i++){
+       aLi[i].onclick=function () {
+           /*1、把tit的内容改变成点击的li 的内容  ；2、把列表隐藏*/
+           oTit.innerHTML = this.innerHTML;
+           oList.style.display = "none";
+       }
+   }
+
+   /*当document被点击的时候，隐藏list*/
+   document.onclick=function () {
+       alert(22)
+       oList.style.display = "none";
+   }
+
+</script>
+</body>
+</html>

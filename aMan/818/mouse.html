@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1 { width: 100px; height: 100px; background: red;}
+    </style>
+</head>
+<body>
+
+<div id="div1"></div>
+<script>
+
+
+    var oDiv = document.getElementById("div1");
+
+    oDiv.onmousedown=function () {
+        console.log("鼠标按下了")
+    };
+
+    oDiv.onmousemove=function () {
+        console.log("鼠标移动")
+    };
+    oDiv.onmouseup=function () {
+        console.log("鼠标抬起")
+    }
+
+    /*oDiv.onmouseover=function () {
+        console.log("鼠标移入")
+    }
+
+    oDiv.onmouseout=function () {
+        console.log("鼠标移出")
+    }*/
+    oDiv.onmouseenter=function () {
+        console.log("鼠标移入")
+    }
+
+    oDiv.onmouseleave=function () {
+        console.log("鼠标移出")
+    }
+</script>
+</body>
+</html>

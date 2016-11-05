@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+
+        #div1 {background-color: red; width: 100px; height: 100px; position: absolute; left: 400px;  top:0;}
+
+        #div2 {background-color: skyblue; width: 100px; height: 100px; position: absolute; left: 0;  top:200px;}
+
+    </style>
+</head>
+<body>
+
+<div id="div1"></div>
+
+
+<div id="div2"></div>
+<script src="base.js"></script>
+<script src="move.js"></script>
+<script>
+    var oDiv1 = $("div1");
+
+
+
+    var obj = {
+        left:100,
+        top:400,
+        height:200
+    };
+
+    fnMove(oDiv1,obj);
+
+    //javascript object notation
+    function fnMove(obj,json) {
+        var timer = null;
+
+        timer = setInterval(function () {
+            //通过for in 循环（枚举）改变每一个属性
+
+            var bOver = true;
+            for(var attr in json){
+                //current 当前的
+                var iH  =getStyle(obj,attr).replace("px","");
+
+                var iCur = Math.ceil(iH) //当前值
+                var iSpeed = (json[attr] - iCur)/6;
+                /*给速度取整*/
+                iSpeed = iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+
+                if(iSpeed!=0){ //如果有一个属性的速度不为0
+                    bOver =false;
+                    obj.style[attr]=iCur+iSpeed+"px";
+                }
+
+            }
+
+            if(bOver){
+                /*整体的运动结束*/
+                clearInterval(timer)
+            }
+
+        },30)
+    }
+
+
+
+</script>
+</body>
+</html>

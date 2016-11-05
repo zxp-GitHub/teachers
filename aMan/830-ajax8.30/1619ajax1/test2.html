@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        * { margin: 0; padding: 0;}
+        ul { margin: 20px auto; width: 700px; overflow: hidden}
+        li { list-style: none; float: left; line-height: 1.8;  width: 170px; margin: 10px; border: 1px solid #ccc; padding: 5px; }
+        li:hover { box-shadow: 0 0 3px rgba(0,0,0,.6)}
+        img { width: 170px; height: 170px;}
+        em { float: left; color: #ff6600}
+        span { float: right;color: #999}
+        .ovfl { overflow: hidden}
+        .ovfl-ellipsis { overflow: hidden; text-overflow: ellipsis; display: block; white-space: nowrap}
+        .add-cart { line-height: 30px; text-align: center; font-family: "Microsoft Yahei"; color: #fff; cursor: pointer; background-color: #ff3311}
+
+    </style>
+</head>
+<body>
+
+
+<ul id="product-list">
+
+</ul>
+<script src="ajax.js"></script>
+
+<script>
+    var aProductList = document.getElementById("product-list");
+
+    var page = 9;
+    var obj = {"page":page++,"pageRows":9,"sortType":2,"sort":1};
+    var json = JSON.stringify(obj);
+
+
+    //ajax(url,type,sendData,fnSucc)
+    ajax("http://www.setfarm.com/index.php/Api/Api","post","CODE=125&JSON="+json,function (data) {
+        var oData = JSON.parse(data)
+        console.log(oData.data.dataInfo);
+        var aProduct = oData.data.dataInfo;//商品的数组
+        var str = "";
+        for(var i=0;i<aProduct.length;i++){
+            /*拼接li*/
+            str+='<li>' +
+                    '<a href="detail.html?pId='+aProduct[i].pid+'"><img src="'+aProduct[i].format_image+'"></a>' +
+                    '<div class="info">' +
+                    '<p><a class="ovfl-ellipsis" href="detail.html?pId='+aProduct[i].pid+'">'+aProduct[i].name+'</a></p>' +
+                    '<p class="ovfl"><em>$'+aProduct[i].format_price+'</em><span>销量：'+aProduct[i].sell_amount+'</span></p>' +
+                    '</div>' +
+                    '<div class="add-cart">添加到购物车</div>' +
+                    '</li>'
+        }
+        /*把li放在ul里面*/
+        aProductList.innerHTML = str;
+    });
+
+
+    //事件委托
+    document.addEventListener("click",function (ev) {
+        console.log(ev.target.className)//事件源的className
+        if(ev.target.className=="add-cart"){
+            alert("添加到购物车")
+        }
+    },false)
+
+
+
+
+</script>
+</body>
+</html>

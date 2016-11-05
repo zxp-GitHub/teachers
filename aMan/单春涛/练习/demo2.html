@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>收缩展开</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div{
+            margin: 0 auto;
+            width: 20px;
+        }
+        ul{
+            list-style: none;
+        }
+        ul li{
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: black;
+            border: 1px solid white;
+            cursor: pointer;
+            color: white;
+        }
+        ol{
+            list-style: none;
+        }
+        ol li{
+            width: 200px;
+            height: 0;
+            background: skyblue;
+            overflow: hidden;
+        }
+    </style>
+    <script src="move.js"></script>
+    <script>
+        window.onload =function () {
+            var ul = document.getElementsByTagName("ul");
+            var ol = document.getElementsByTagName("ol");
+            for (var i=0; i<ul.length; i++){
+                ul[i].children[0].index = i;//就一个li
+                ul[i].children[0].onclick = function () {
+                    for (var i=0; i<ol.length; i++){
+                    	//初始化 都0
+                        fnMove(ol[i].children[0], {height:0})
+                    }
+                    fnMove(ol[this.index].children[0], {height:200});
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div">
+    <ul>
+        <li>第一年</li>
+    </ul>
+    <ol>
+        <li class="selected">放羊</li>
+    </ol>
+    <ul>
+        <li>第二年</li>
+    </ul>
+    <ol>
+        <li>卖羊</li>
+    </ol>
+    <ul>
+        <li>第三年</li>
+    </ul>
+    <ol>
+        <li>娶媳妇</li>
+    </ol>
+    <ul>
+        <li>第四年</li>
+    </ul>
+    <ol>
+        <li>生娃</li>
+    </ol>
+    <ul>
+        <li>第五年</li>
+    </ul>
+    <ol>
+        <li>娃放羊</li>
+    </ol>
+</div>
+</body>
+</html>

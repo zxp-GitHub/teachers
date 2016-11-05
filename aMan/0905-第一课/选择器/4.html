@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1"></div>
+<script>
+
+
+    function $() {
+        var arg1 = arguments[0];
+        var elements = [];
+        if(typeof arg1=="string"){
+            elements.push(document.getElementById(arg1))
+        }
+
+
+        return new $.init(elements);
+    }
+    $.init=function (elements) {
+
+        for(var attr in elements){
+            this[attr]= elements[attr]
+        }
+        this.length = elements.length;
+
+    };
+    $.init.prototype.css=function () {
+
+
+    };
+    $("div1").css()
+
+</script>
+</body>
+</html>

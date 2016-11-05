@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<script>
+    var getName;
+    function getName() { alert (5);}
+
+    function Foo() {
+        getName = function () { alert (1); };
+        //console.log(this) //如果没有指定调用函数的对象，那this就执行window
+        return this;
+    }
+
+
+    Foo.getName = function () { alert (2);};
+    Foo.prototype.getName = function () { alert (3)};
+
+    getName = function () { alert (4);};
+
+
+    Foo.getName(); //2
+
+    getName(); //4
+
+    console.log(Foo())//window
+    Foo().getName();//1
+
+    getName();//1
+
+    new Foo.getName();//2运算符优先级问题
+    //请写出以下输出结果：
+/*
+
+
+
+
+ 
+
+    new Foo.getName();
+*/
+
+/*function $() {
+
+    return new Init()
+}
+Init=function () {
+
+}*/
+
+</script>
+</body>
+</html>

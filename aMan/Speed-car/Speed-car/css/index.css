@@ -1,0 +1,24 @@
+html,body,div,p,ul,ol,li{margin:0;padding:0;}
+img{border:none;}
+ul,ol,li{list-style: none;}
+a{text-decoration: none;font-size:15px;font-family: "微软雅黑";font-weight:900;color:black;}
+
+#container{width:1000px;height:550px;background: #000;margin:10px auto;position:relative;}
+
+.call110{width:400px;height:200px;font-size:40px;text-align: center;font-family: "微软雅黑";font-weight:900;color:red;position:absolute;left:300px;top:30px;display: none;}
+
+.div1{overflow:hidden;width:1000px;height:400px;position:relative;}
+
+.div1 ul{position:absolute; left:0; top:0;}
+.view{width:150px;height:150px;position:absolute;left:50px;bottom:0;}
+.div1 ul li{float:left;}
+
+a{display:block;width:140px;height:60px;font-size:20px;color:#fff;text-align: center;border-radius: 20px;line-height:60px;position:absolute;top:450px;}
+a:hover{font-size:24px;}
+
+.a1{left:260px;background:#330000;}
+.a2{left:460px;background:#cc0000;}
+.a3{left:660px;background:#ffcc00;}
+.try{position:absolute;width:150px;height:150px;bottom:0;right:10px;}
+.car{width:200px;height:100px;position:absolute;left:390px;top:250px;}
+

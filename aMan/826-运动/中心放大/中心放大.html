@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<style>
+body, ul, li { margin:0; padding:0;}
+#ul1 { margin:60px auto; width:600px; position:relative; }
+#ul1 li {float:left; list-style:none; width:150px; height:150px; background:#CCC; z-index:1; margin:10px; border:1px solid #F0F0F0; }
+img {width: 100%; height: 100%; }
+</style>
+
+
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<ul id="ul1">
+<li ><img src="images/1.jpg"></li>
+<li><img src="images/2.jpg"></li>
+<li><img src="images/3.jpg"></li>
+<li><img src="images/13.jpg"></li>
+<li><img src="images/5.jpg"></li>
+<li><img src="images/10.jpeg"></li>
+<li><img src="images/7.jpg"></li>
+<li><img src="images/8.jpg"></li>
+<li><img src="images/9.jpg"></li>
+
+</ul>
+<script src="js/move.js"></script>
+<script>
+
+    var $ = getId;
+    var oUl = $("ul1");
+    var aLi = oUl.children;
+    var len = aLi.length;
+    var zIndex = 1;
+
+    getStyle(oUl,"left");
+
+    document.onclick=function () {
+        /*布局转换*/
+        for(var i=0;i<len;i++){
+            console.log(aLi[i].offsetLeft);
+            //alert(aLi[i].offsetLeft)
+            aLi[i].style.left = aLi[i].offsetLeft+"px";
+            aLi[i].style.top = aLi[i].offsetTop+"px";
+
+            //让所有元素都获取到offsetLeft以后再加绝对定位、
+
+        }
+
+        for(var i=0;i<len;i++ ){
+            //offsetLeft =  marginLeft + left
+            //left = offsetLeft
+            aLi[i].style.margin = 0;
+            aLi[i].style.position = "absolute"
+
+        }
+    };
+
+    for(var i=0;i<len;i++ ){
+        aLi[i].onmouseover=function () {
+            this.style.zIndex = zIndex++;
+            fnMove(this,{"width":300,"height":300,"marginLeft":-75,"marginTop":-75})
+        };
+
+        aLi[i].onmouseout=function () {
+            fnMove(this,{"width":150,"height":150,"marginLeft":0,"marginTop":0})
+        }
+    }
+    oul.innerHTML+= oul.innerHTML
+   /* oul.innerHTML = oul.innerHTML + oul.innerHTML
+    oul.innerHTML ="<li></li><li></li><li></li><li></li>"*/
+    oul.innerHTML = "<li></li><li></li><li></li><li></li>"+"<li></li><li></li><li></li><li></li>";
+
+
+
+
+	function setCSS(obj,json){
+		for(var attr in json){
+			//attr 是属性的名字
+			//json[attr] //属性的值
+			//console.log(attr+":"+json[attr])
+			obj.style[attr] = json[attr]+"px"; //让对象的属性就等于我传进去的属性
+		}
+	}
+
+</script>
+</body>
+</html>

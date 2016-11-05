@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/base.css" rel="stylesheet"/>
+    <link href="css/reg.css" rel="stylesheet"/>
+    <script src="js/base.js"></script>
+</head>
+<body>
+
+<div class="reg-wrap">
+    <form method="post">
+
+       <ul class="form-list">
+
+           <!--用户名-->
+           <li class="form-item  ">
+               <span class="item-tit">用 户 名</span>
+               <input class="item-cont" placeholder="您的账户名和登录名" type="text" id="username" />
+               <i class="icon"></i>
+           </li>
+           <li class="input-tip ">
+
+                <p><i class="icon"></i><span>支持中文、字母、数字、“-”“_”的组合，4-20个字符"</span></p>
+           </li>
+
+           <!--密码-->
+           <li class="form-item">
+               <span class="item-tit">设置密码</span>
+               <input class="item-cont" placeholder="建议至少使用两种字符组合" type="text" id="password" />
+               <i class="icon"></i>
+           </li>
+           <li class="input-tip">
+               <p><i class="icon"></i><span><i class=i-def></i>建议使用字母、数字和符号两种及以上的组合，6-20个字符"</span></p>
+           </li>
+
+
+           <!--重复密码-->
+           <li class="form-item">
+               <span class="item-tit">确认密码</span>
+               <input class="item-cont" placeholder="请再次输入密码" type="text" id="r-password" />
+               <i class="icon"></i>
+           </li>
+           <li class="input-tip">
+               <p><i class="icon"></i><span><i class=i-def></i>请再次输入密码"</span></p>
+           </li>
+
+
+           <!--手机号-->
+           <li class="form-item">
+               <span class="item-tit">手机号码</span>
+               <input class="item-cont" placeholder="建议使用常用手机" type="text" id="mobile" />
+               <i class="icon"></i>
+           </li>
+           <li class="input-tip">
+               <p><i class="icon"></i><span><i class=i-def></i>完成验证后，可以使用该手机登录和找回密码"</span></p>
+           </li>
+
+
+           <!--验证码-->
+           <li class="form-item">
+               <span class="item-tit">手机验证码</span>
+               <input class="item-cont" placeholder="请输入验证码" type="text" id="test-code" />
+               <span class="cur" id="code-pic">d03L</span>
+           </li>
+           <li class="input-tip">
+               <p><i class="icon"></i><span><i class=i-def></i>看不清？点击图片更换验证码"</span></p>
+           </li>
+
+            <li class="check-item">
+                <input type="checkbox" id="check-input" checked />
+                <span>我已阅读并同意<a href="1619.html">《1619用户注册协议》</a></span>
+
+            </li>
+           <li>
+               <input type="submit" id="submit-btn" class="cur" value="立即注册" />
+           </li>
+       </ul>
+
+    </form>
+
+</div>
+
+
+<script src="js/reg.js"></script>
+</body>
+</html>

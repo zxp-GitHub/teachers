@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        * { margin: 0; padding: 0;line-height: 30px;}
+        ul { margin: 20px auto; width: 300px; border: 1px solid #aaa; padding: 20px;}
+        li { list-style: none;   border-bottom: 1px dashed #aaa;}
+    </style>
+</head>
+<body>
+
+
+
+<ul id="list">
+
+    <li>轻轻的我走了，正如我轻轻的来</li>
+    <li>轻轻的我来了，正如我轻轻的走</li>
+    <li>放假去哪里玩？？？</li>
+    <li>放假去好好学习</li>
+    <li>放假去new一个对象</li>
+</ul>
+<div style="text-align: center">
+
+    <input type="button" value="首部添加" id="add-first"/>
+
+    <input type="button" value="尾部添加" id="add-last"/>
+    <p>在列表首部添加一个li内容为'I am first child，title为点击删除，背景颜色为#999，className为first</p>
+    <p>在列表尾部添加一个li内容为'I am last child，title为点击删除，背景颜色为#a72,className为last</p>
+    <p>当动态添加的li被点击的时候，自动删除自己</p>
+</div>
+
+
+<script src="base.js"></script>
+<script>
+    /*1、获取元素*/
+    /*获取按钮*/
+    var oLastBtn = $("add-last");
+    var oFirstBtn = $("add-first");
+
+    /*获取列表*/
+    var oUl = $("list");
+    //var aLi = document.getElementsByTagName("li");
+
+    /*2、添加事件*/
+    /*oLastBtn 添加事件*/
+    oLastBtn.onclick=function () {
+       // alert("在尾部添加一个li")
+        //3、需要把li放在ull里面
+        //3.1 创建li
+        var oLi = document.createElement("li");
+        oLi.innerHTML = "last";
+
+        /*3.2 把li放在ul里面*/
+        oUl.appendChild(oLi); //在ul里面 插入了一个li
+
+        /*给你创建的li添加一个点击事件*/
+        oLi.onclick=function () {
+            //this == 当前点击的li，其实就是oLi
+
+            console.log(this);
+            console.log(oLi);
+            oUl.removeChild(this)
+        }
+
+    };
+    /*oFirstBtn 添加事件*/
+    oFirstBtn.onclick=function () {
+        //alert("在首部添加一个li")
+        //3需要把li 放在 ul里面所有li的最前面
+        //3.1创建li
+        var oLi = document.createElement("li");
+        oLi.innerHTML = "first";
+
+        /*把创建好的li放在 ul里面所有li的最前面*/
+        oUl.insertBefore(oLi,oUl.firstChild);
+        //在ul里面放一个li，放在哪？ 放在ul里面第一li的前面
+
+
+    }
+</script>
+</body>
+</html>

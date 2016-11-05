@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        div { padding: 20px;}
+        #text { color: #999}
+        #form1 { border: 1px solid red}
+    </style>
+</head>
+<body>
+
+<form id="form1">
+
+    <div>
+    用户名
+    <input type="text" id="text" value="6至18为的用户名" >
+    </div>
+
+    <div>
+    密码
+    <input type="password" id="password" value="">
+    </div>
+
+
+    <div>
+    邮箱
+    <input type="text" id="e-mail" value="" />
+    </div>
+    <div>
+        <input type="reset" id="reset-btn" value="重置">
+    </div>
+    <div>
+        <input type="submit" value="提交">
+    </div>
+
+</form>
+
+
+
+<script>
+
+    var oForm = document.getElementById("form1");
+    var oText = document.getElementById("text");
+    var oEMail = document.getElementById("e-mail");
+    var oResetBtn = document.getElementById("reset-btn");
+    oText.onfocus=function () {
+        if(this.value=="6至18为的用户名"){
+            /*如果现在的value值等于，默认的提示，*/
+            /*把提示清除*/
+            this.value = ""
+        }else {
+            /*不管了*/
+        }
+    };
+
+    oText.onblur=function () {
+        /*当输入框失去焦点的时候，判断用户是否输入的内容，*/
+        if(this.value){
+            /*用户输入了内容*/
+        }else {
+            /*用户没有输入内容的话，就显示提示*/
+            this.value = "6至18为的用户名"
+        }
+
+    };
+
+    console.log(oEMail);
+
+    /*onchange事件，是在表单元素失去焦点的时候，判断里面的内容是否发生改变*/
+    oEMail.onchange=function () {
+        console.log("内容改变了")
+    };
+
+
+
+    /*重置事件*/
+    oForm.onreset=function () {
+        alert("重置")
+    };
+    /*提交事件*/
+    oForm.onsubmit=function () {
+        alert("提交")
+    };
+    oResetBtn.onclick=function () {
+        alert("重置按钮被点击")
+    }
+
+</script>
+</body>
+</html>

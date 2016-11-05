@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0; padding: 0;}
+        h3 { line-height: 30px; text-indent: 10px;}
+        .wrap {margin: 20px auto; width: 220px;}
+        .list { position: relative;   height: 250px; overflow: hidden; border: 1px solid #ccc;padding: 0 20px;width: 220px;}
+        ul { position: absolute; top: 0; left: 20px; width: 220px; }
+        li { text-indent: 10px; list-style: none;font-size: 14px; line-height: 24px; border-bottom: 1px dashed #ccc; padding: 6px 0; overflow: hidden; height: 50px; }
+    </style>
+</head>
+<body>
+
+
+
+
+
+<div class="wrap">
+    <h3>今日热点</h3>
+    <div class="list">
+        <ul>
+            <li>北京CBD有望率先试用5G 将新建两条地铁线路</li>
+            <li>相处四小时后闪婚,  漂亮！中国还没动手，安倍就连遭四重打击</li>
+            <li>普京 祖马 奥巴马 他们这样评价中国举办G20</li>
+            <li>王宝强财产分割！科学家在大西洋底部发现“小飞象”</li>
+            <li>梁咏琪想生二胎,梁咏琪想生二胎</li>
+            <li>土豪玩游戏是怎样的体验？王思聪告诉你</li>
+            <li>巴西银行业举行全国无限期罢工 要求加薪14.78%</li>
+            <li>银行职员月入790,C917将实现首飞</li>
+
+        </ul>
+    </div>
+
+</div>
+<script src="banner/jquery-1.7.2.min.js"></script>
+<script>
+    var $ul = $("ul");
+    var $list = $(".list");
+    var $li =  $("li");
+//$li: li0  li1 li2 li3
+
+    var iH = $li.outerHeight();
+    var timer =null;
+
+
+    autoScroll()//一开始就自动滚动
+    $list.hover(function () {
+        clearInterval(timer)
+    },function () {
+        autoScroll()
+    });
+    
+
+    console.log(iH)
+    function autoScroll() {
+        timer = setInterval(function () {
+            //让ul的top到负的一个li的高度
+            $ul.animate({"top":-iH},function () {
+                //运动结束以后，
+
+                //li的顺序发生改变了，需要重新获取li，
+                // 所以每次都需要$("li")，而不是用之前保存好的$li
+                $("li").eq(0).appendTo($ul);
+                //$li: li0  li1 li2 li3
+                //  li1 li2 li3  li0
+                $ul.css({"top":0})
+            })
+        },1000)
+    }
+
+
+
+</script>
+</body>
+</html>

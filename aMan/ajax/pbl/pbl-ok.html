@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: #f3f2f3;
+			}
+			#main {
+				border: 1px solid red;
+
+				position: relative;
+			}
+			.list {
+				margin: 0 10px;
+				width: 245px;
+				float: left;
+			}
+			img { width: 100%; height: 100%; }
+			.pic { position: absolute;}
+			.pic:hover { z-index: 1; }
+			.active { box-shadow: 0 0 8px rgba(0,0,0,1)}
+			/*//.pic:hover img { border: 5px solid red; width: 150%; height: 150%; }*/
+			#load { width: 100%; height: 40px; cursor: pointer; text-align: center;}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="main">
+
+
+
+		</div>
+
+		<div id="load">加载</div>
+
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript">
+
+
+			var oWrap = $('#main'); //壳子
+			var canLoad = true; //第一次默认可以加载
+			var arrL = [];//1020,1275
+			var arrT = [];
+			var size = 0;
+			fnChange()//通过计算屏幕的宽度，自适应显示列数
+			addData(); //页面加载是，加载数据
+
+			//加载数据
+
+			function fnChange(){
+				var w = $(window).width();
+				//len是在 窗口改变之前，的列数
+				var len = size;
+
+				//当窗口改变的时候，改变size；
+				if(w>=1275){
+					size = 5;
+					arrL = [0,255,510,765,1020];
+					arrT = [0,0,0,0,0];
+				}else if(w>=1020){
+					size = 4;
+					arrL = [0,255,510,765];
+					arrT = [0,0,0,0];
+				}else {
+					size = 3;
+					arrL = [0,255,510];
+					arrT = [0,0,0];
+				}
+				//如果窗口改变以后len==size，说明列数并没有发生变化;
+				if(len==size){
+					return false;//不让他执行下面的操作
+				}else{
+					return true;
+				}
+
+			}
+			$(window).resize(function(){//当窗口发生改变时
+				if(!fnChange()) {return};
+
+				oWrap.find('.pic').each(function(){//拿到所有的图片重新排序
+					var index = getMin();//获取最小高度的列，
+					$(this).animate({"left":arrL[index],"top":arrT[index]});//让当前图片运动到重新计算好的位置
+					arrT[index] = arrT[index]+$(this).find("img").height()+10
+
+				})
+			});
+
+			$(window).scroll(function(){
+				if(canLoad){ //如果可以加载数据
+
+					var iBottom = $(window).scrollTop()+$(window).height();
+					//屏幕底部距离文档最顶部的距离 （可视区高度+滚动高度）
+
+					var iL = arrT[getMin()]+oWrap.offset().top-10;
+					//最小列表的高度
+
+					if(iBottom>iL){ //如果最小高度的列表已经完全显示，就让再次加载数据
+						//console.log(1)
+						addData()
+					}
+				}
+
+			});
+
+
+			function getMin(){
+				var iNow = 0; //假设第一列表的高度最小
+				var iH = arrT[0]; //获取第一个列表的高度
+				for(var i=1; i<arrT.length;i++){
+					if(arrT[i]<iH){//用当前的最小高度和下一个列表的高度对比
+						//如果下一个列表的高度，小当前的高度，
+						iH = arrT[i]; //让最小高度等于下一个列表的高度
+						iNow = i; //改变最小高度，列表的索引
+					}
+				}
+				return iNow;//返回最小高度的索引
+			}
+			function addData(){
+				canLoad = false;//开始加载数据是，不让重复加载
+				$.get("pbl.json",function(data){//用jsonp加载数据
+
+					var str = "";
+
+					for(var i =0;i<data.length;i++){ //拿到数值数据，加循环
+						var oSrc = data[i].src; //拿到图片的src
+
+						var h = parseInt(data[i].height);//图片的原高度
+						var w = parseInt(data[i].width);//图片的原宽度
+
+						var H = Math.round((h/w)*245); //经过计算后的图片高度
+
+						var l,t;
+						var index = getMin()//获取最小高度的列
+						l = arrL[index]+"px";
+						t = arrT[index]+"px";
+
+
+						str ='<div class="pic"  style="left:'+l+'; top: '+t+'; width: 245px; height:'+H+'px">' +
+								'<img src="'+oSrc+'"' +
+								' style=""></div>';
+						//生成一个图片对象的字符串
+
+						arrT[index] = arrT[index]+H+10;
+						//下个图片的top，就等于当前图片的top，加当前图片的高度加纵向间距;
+
+						//getMin() 获取最小高度的 列表
+						$(str).appendTo(oWrap) //把图片添加到最小高度的列表
+
+
+					}
+					//$('body').append(str)t
+					canLoad = true;//数据添加完成后，允许再次加载
+
+
+				})
+
+			};
+
+
+			/*console.log($(".pic"))
+			$(".pic").mouseover(function(){
+				alert(1);
+				$(this).addClass("active")
+			});*/
+			$(".pic").click(function(){
+				alert(1)
+			})
+
+			$(document).click(function(event){
+				var oEvent = window.event||event;
+
+				console.log(oEvent.target)
+
+			})
+
+
+		/*	$(document).on('mouseover',".pic",function(){
+				//$(this).css("border","5px solid red")
+			 $(this).addClass("active")
+			})
+
+			$(".pic").live("mouseout",function(){ //就是用来给对象绑定事件的
+				//$(this).css("border","none")
+ 				$(this).removeClass("active")
+			})*/
+			/*
+			$(".pic").live("mouseout",function(){ //就是用来给对象绑定事件的
+				$(this).css("border","none")
+			})*/
+//			$('.pic').hover(function(){
+//				$(this).css("border","5px solid red")
+//			},function(){
+//				$(this).css("border","none")
+//			})
+
+
+		</script>
+	</body>
+
+</html>

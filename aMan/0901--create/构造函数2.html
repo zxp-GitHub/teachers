@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+   function Person(name) {
+
+       this.name = name;
+       this.age = 28;
+       this.sayName=function () {
+           alert(this.name)
+       };
+       //this=>(用Person实例出来的对象)  --->zhangsan
+   }
+
+   console.log(Person.age);
+   var zhangsan = new Person("zhangsan");
+   var huge = new Person("huge");
+   //person1 就是实例的对象
+   zhangsan.sayName();
+   huge.sayName()
+
+
+   console.log(zhangsan.sayName===huge.sayName);
+   console.log(huge);
+
+
+
+
+
+   function PersonF(name) {
+       return {
+           name:name
+       }
+
+   }
+   var person2 = PersonF("yu");
+   //console.log(person2)
+
+
+</script>
+</body>
+</html>

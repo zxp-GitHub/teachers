@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="css/base.css" rel="stylesheet" />
+
+    <style>
+       #wrap { margin: 0 auto; width: 560px; height: 300px; position: relative; border: 1px solid red}
+        #pic-list { height: 300px; position: absolute; left: 0; top: 0; width: 100000px;}
+        #pic-list li { float: left; width: 560px; height: 300px; }
+
+        #wrap img { width: 100%; height: 100%;}
+
+        .tg-btn { position: absolute; top: 50%; margin-top: -25px; height: 50px; line-height: 50px; width: 60px; background-color: rgba(0,0,0,.3);color: rgba(255,255,255,.8); font-size: 30px; text-align: center; left: 0; display: none; font-family:"inherit" ;font-weight: bold}
+
+        #next { right:0; left: auto}
+
+        #wrap:hover .tg-btn { display: block}
+       .tg-btn:hover { background-color: rgba(0,0,0,.5); color: #fff; text-shadow: 0 0 3px #fff}
+
+
+
+
+        #btn-list { position: absolute; left: 0; bottom: 0; width: 100%; overflow: hidden; text-align: center; line-height: 30px; }
+        #btn-list li { display: inline-block; height: 14px; width: 14px; margin: 0 10px; border-radius: 50%; cursor: pointer;background-color:  #ccc; border: 2px solid #fff;}
+        #btn-list .active {background-color:  #ff7700}
+    </style>
+</head>
+<body>
+
+
+
+<div id="wrap">
+
+
+    <ul id="pic-list">
+    	<li><a href="###"><img src="images/d.jpg"></a></li>
+        <li><a href="###"><img src="images/a.jpg"></a></li>
+        <li><a href="###"><img src="images/c.jpg"></a></li>
+        <!--<li><img src="images/nav-ban1.jpg"></li>
+        <li><img src="images/nav-ban2.jpg"></li>
+        <li><img src="images/nav-ban3.jpg"></li>-->
+
+    </ul>
+
+    <ul id="btn-list">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+     <a class="tg-btn" id="prev" href="javascript:;"><</a>
+    <a class="tg-btn" id="next" href="javascript:;">></a>
+</div>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+
+    /*获取元素*/
+    var $prev = $("#prev");
+    var $next = $("#next");
+    var $list = $("#pic-list");
+    var $picLi = $("#pic-list li");
+    var $btnLi = $("#btn-list li");
+    var $wrap = $("#wrap");
+
+    /*可能会用的变量*/
+    var iNow = 0;
+    var iW = $picLi.outerWidth();
+    var len = $picLi.length;
+    var timer = null;
+    var animated = true;
+    
+    
+     // 2、创建一个li，让他的img个第一个的图片一样，然后添加到list里面
+   console.log($picLi.eq(0).find("img").attr("src"))//第一个图片的src
+    var src = $picLi.eq(0).find("img").attr("src");
+   $('<li><a href="###"><img src="'+src+'"></a></li>').appendTo($list)
+//         $('<li><img src="'+src+'"></li>').appendTo($list)
+// var timer = setInterval(function(){
+//	$("#wrap #pic-list li").first().appendTo($("#wrap #pic-list"));
+//	 }, 1000); 
+    
+//  autoplay();
+
+    /*右按钮事件*/
+    $next.click(function () {
+		 if(!animated) {
+            console.log("不能开始下一次")
+            return
+        }
+
+
+        if(iNow>=len){ //判断到最后了，还要显示下一张，那就跳到第一张，运动到第二张
+            iNow =0;
+            $list.css({"left":0}) //跳到第一张
+        }
+        iNow++;
+        changeView()
+    });
+
+    /*左按钮事件*/
+    $prev.click(function () {
+    	 if(!animated) {
+            console.log("不能开始下一次")
+            return
+        }
+
+        if(iNow<=0){
+            iNow = len;
+            $list.css({"left":-iNow*iW})//到最后的位置
+        }
+        iNow--;
+        changeView()
+    });
+    
+    
+    $btnLi.click(function () {
+        iNow = $(this).index();//让iNow=当点击的按钮的下标
+        changeView()
+    });
+    
+    
+    function changeView() {
+    	 animated = false;
+        $list.stop().animate({"left":-iW*iNow},function () {
+            //运动结束
+            console.log("运动结束");
+            animated = true;
+        });
+       //$list.stop().animate({"left":-iW*iNow});
+        $btnLi.removeClass("active").eq(iNow%len).addClass("active")
+    }
+    
+    
+    
+    
+    
+    
+//   function autoplay(){
+//		timer = setInterval(function(){
+//			$next.click();
+//		},2000)
+//	}
+//   
+////   
+//  $wrap.mouseenter(function(){
+//		clearInterval(timer)
+//	})
+//   
+//	$wrap.mouseleave(function(){
+//		autoplay();
+//	})
+
+</script>
+</body>
+</html>

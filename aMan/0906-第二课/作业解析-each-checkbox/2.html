@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0; padding: 0;}
+        div { margin: 40px; padding: 0 5px; float: left;}
+    </style>
+</head>
+<body>
+
+<form id="f1">
+
+    <div><label>第一个： <input type="checkbox" checked  name="1"></label></div>
+    <div><label>第二个： <input type="checkbox" checked  name="2"></label></div>
+    <div><label>第三个： <input type="checkbox"  name="3"></label></div>
+</form>
+
+
+
+<script src="../jquery-1.7.2.min.js"></script>
+
+<script>
+    $('input:checkbox').click(function(){
+        //$(this).index()//找兄弟节点的下标
+        //console.log($(this).index("input")) //找相对于所有input，当前元素所处的下标
+        //console.log($("input").index($(this)));
+        // console.log($("input").index(this))
+
+        //$("input:checked").eq(i)
+        //console.log($("input:checked"))
+        var $checked = $("input:checked");
+
+        for(var i=0;i<$checked.length;i++){
+            console.log($checked.eq(i).index("input"))
+        }
+
+    })
+</script>
+</body>
+
+</html>

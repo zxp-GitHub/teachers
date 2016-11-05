@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1 { width: 100px; height: 100px; background-color: red;;}
+    </style>
+</head>
+<body>
+
+
+<div id="div1"></div>
+<script src="../拖拽/base.js"></script>
+<script>
+   var oDiv =  $("div1");
+    console.log(oDiv);
+   /*oDiv.onclick=function () {
+       alert(1)
+   };
+
+   oDiv.onclick=function () {
+       alert(2)
+   }*/
+  // oDiv.addEventListener("click",fn1,false);
+   //oDiv.removeEventListener("click",fn1,false);
+
+   oDiv.attachEvent("onmouseover",fn1);
+   oDiv.detachEvent("onmouseover",fn1);
+
+
+    /*删除addEventListener添加的事件时，removeEventListener里面的参数必须和添加时候的参数完全一样，使用匿名还是也会导致删除失败*/
+    function fn1() {
+
+        alert("fn1")
+    }
+
+</script>
+</body>
+</html>

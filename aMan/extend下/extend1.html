@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+    function Person(name,sex) {
+        this.name = name;
+        this.sex = sex;
+    }
+    Person.prototype.sayName=function () {
+        alert(this.name)
+    };
+
+
+
+    function Hero(name,sex,skill) {
+        //想要把Person里面的this变成Hero里面的this
+        //Person(name,sex);// Person=> this.name = name
+        //Person.call(this,name,sex);
+        Person.apply(this,[name,sex]);
+        //apply()
+
+        this.skill = skill;
+    }
+
+    var huge = new Hero("huge","nan","唱歌");
+    console.log(huge)
+
+</script>
+</body>
+</html>

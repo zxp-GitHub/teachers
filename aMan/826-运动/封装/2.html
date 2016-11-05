@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+
+        #div1 {background-color: red; width: 100px; height: 100px; position: absolute; left: 400px;  top:0;}
+
+        #div2 {background-color: skyblue; width: 100px; height: 100px; position: absolute; left: 0;  top:200px;}
+
+    </style>
+</head>
+<body>
+
+<div id="div1"></div>
+
+
+<div id="div2"></div>
+<script src="base.js"></script>
+<script src="move.js"></script>
+<script>
+    var oDiv1 = $("div1");
+    var oDiv2 = $("div2");
+
+
+    fnMove(oDiv1,"left",100);
+
+    /*fnMove(oDiv1,{
+        left:100,
+        top:400,
+        height:400
+    });*/
+
+    function fnMove(obj,attr,target) {
+
+        timer = setInterval(function () {
+            var iL = parseInt(getStyle(obj,attr));
+            var iSpeed = (target-iL)/6;
+            //用目标值减去当前值/固定的系数，计算出当前的速度
+            //1  50
+            //2  500-50 =450/10  =>45
+            //3  500-95 = 405/10 = >40
+            //......
+            //20 500-400 =100/10 = 10
+            //40 500-480 = 20/10 = 2
+            console.log(target-iL);
+            iSpeed = iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+           /* if(iSpeed>0){
+                iSpeed = Math.ceil(iSpeed);
+            }else {
+                iSpeed = Math.floor(iSpeed);
+            }*/
+            console.log(iSpeed);
+            obj.style[attr]= iL+iSpeed+"px";
+
+            //450-100  =350>=100
+            if(iL+iSpeed == target){
+                clearInterval(timer);
+            }
+        },30)
+    }
+
+
+   /* var timer = null;
+    var iTar = 500; //目标值
+    var iSpeed = 20;
+    timer = setInterval(function () {
+        var iL = parseInt(getStyle(oDiv,"left"));
+        oDiv.style.left=iL+iSpeed+"px";
+        if(iL+iSpeed==iTar){
+            clearInterval(timer)
+        }
+    },30)*/
+
+</script>
+</body>
+</html>

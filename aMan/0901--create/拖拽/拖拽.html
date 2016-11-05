@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div { background: url("2.jpg") no-repeat center; background-size: 100% 100%;   width: 80px; height:80px; position: absolute; left: 0; top:0 ;}
+
+    </style>
+</head>
+<body>
+<input type="button" value="createCart" id="btnCart" />
+<input type="button" value="createHao" id="btnHao" />
+<script>
+
+
+    function DragObj(src){
+        this.src = src;
+    }
+    DragObj.prototype.init=function(){
+        this.element = document.createElement("div")
+        this.element.style.backgroundImage="url('"+this.src+"')";
+        document.body.appendChild(this.element)
+
+        this.bindEvent();
+
+    }
+    DragObj.prototype.bindEvent=function(){
+
+        this.element.onmousedown=function(event){
+
+            var oEvent = window.event||event;
+            var mouseX = oEvent.clientX;
+            var mouseY = oEvent.clientY;
+            var disX =  mouseX - this.offsetLeft;
+            var disY =  mouseY - this.offsetTop;
+            var that = this;/*定义一个变量，来保存当前点击的div*/
+
+            /*鼠标移动*/
+            document.onmousemove=function(event){
+                var oEvent = window.event||event;
+                var mouseX = oEvent.clientX;
+                var mouseY = oEvent.clientY;
+
+                /*设置oDiv的left和top*/
+                that.style.left = mouseX-disX+"px";
+                that.style.top = mouseY-disY+"px";
+
+                return false
+            };
+            /*当鼠标松开的时候，不让跟着跑*/
+            document.onmouseup=function(){
+                /*把鼠标移到事件设置为空,当鼠标移动的时候，div就不会跟着跑了*/
+                document.onmousemove=null;
+                document.onmouseup=null;
+
+            }
+        }
+    };
+
+
+
+document.getElementById("btnCart").onclick=function(){
+    var obj = new DragObj("cc.gif")
+    obj.init()
+}
+    document.getElementById("btnHao").onclick=function(){
+        var obj = new DragObj("1.jpg")
+        obj.init()
+    }
+
+
+</script>
+</body>
+</html>

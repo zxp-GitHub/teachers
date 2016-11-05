@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+
+    /*var prototype1 = {a:1,b:2};
+    var prototype2 = prototype1;
+    prototype2.a =10;
+    console.log(prototype1)*/
+
+
+    var prototype1 = {a:1,b:2};
+    var prototype2 = {};
+    prototype2.a =prototype1.a;
+    prototype2.b = prototype1.b;
+
+    prototype2.a =10;
+    console.log(prototype1)
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {overflow: hidden}
+        .cat { background: url("cc.gif") no-repeat center; background-size: 100% 100%;   width: 80px; height:80px; position: absolute; left: 0; top:0 ; }
+
+    </style>
+</head>
+<body>
+
+
+<script>
+
+
+    /*私有的*/
+    /*  1、有一个元素，而且有图像
+     * 2、有x和y的速度
+     *
+     * 公用的
+     * 3、有一个自己走的方法
+     * 4、有个可以拖拽的方法
+     * */
+
+
+    /*创建一个类，可拖拽的对象*/
+    function DragObj(src) {
+        /*私有属性*/
+        this.src = src;
+        this.iSpeedX = Math.round(Math.random()*2+3)//随机3-8的速度
+        this.iSpeedY = Math.round(Math.random()*2+3)
+    }
+    /*初始化方法*/
+    DragObj.prototype.init=function () {
+        /*需要创建一个元素放在html里面*/
+        this.element = document.createElement("div");
+        this.element.className = "cat";
+        this.src && (this.element.style.background="url("+this.src+") no-repeat center;");
+        document.body.appendChild(this.element);
+
+        /*把其他需要调用的方法都放在初始化里面*/
+        this.autoRun()
+    };
+    /*自己跑*/
+    DragObj.prototype.autoRun=function () {
+        //因为在定时器里面 this指向的是window
+        //所有需要把this保存起来
+        var that = this;
+        window.setInterval(function () {
+            //console.log(that.element);//div.cat
+            //持续改变div的left和top值
+
+            var maxL = document.documentElement.clientWidth;
+            var maxT = document.documentElement.clientHeight;
+
+            var iL = that.element.offsetLeft+that.iSpeedX//即将去的位置
+            var iT = that.element.offsetTop+that.iSpeedY//即将去的位置
+
+            /*判断，如果到达大最值，就让他从左边和上边重新开始*/
+            if(iL>=maxL){
+                iL=- that.element.offsetWidth
+            }
+            if(iT>=maxT){
+                iT=- that.element.offsetHeight
+            }
+
+            that.element.style.left = iL+"px";
+            that.element.style.top = iT+"px"
+        },30)
+    };
+    var cat1 = new DragObj();
+    cat1.init();
+
+    var cat2 = new DragObj();
+    cat2.init();
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1 { margin: 50px; width: 200px; height: 200px; background-color: #ccc; position: relative; }
+        #div2 { margin: 10px; width: 100px; height: 100px; background-color: #666; position: absolute; left: 10px;  }
+        #div3 { height: 10px; background-color: skyblue}
+    </style>
+</head>
+<body>
+
+
+<div id="div1">
+    <div id="div3"></div>
+    <div id="div2">
+
+    </div>
+</div>
+
+<script>
+    var oDiv2 = document.getElementById("div2");
+    console.log(oDiv2.offsetParent);
+
+
+    //offsetParent 指的就是元素的定位父级
+
+    console.log(oDiv2.offsetHeight);
+    //offsetHeight = width + padding + border
+    console.log(oDiv2.offsetWidth);
+
+
+    console.log(oDiv2.offsetLeft);
+    //offsetLeft 是元素 距离定位父级左边的距离
+    //offsetLeft = left + marginLeft (定位的时候)
+
+</script>
+</body>
+</html>

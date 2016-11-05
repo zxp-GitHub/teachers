@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div { width: 100px; height: 100px;  background-color: #c0b3e2}
+    </style>
+</head>
+<body>
+
+<div class="div2" id="div1" data="1" style="display: block"></div>
+
+
+<script>
+    var oDiv = document.getElementById("div1");
+    console.log(oDiv.className);
+    console.log(oDiv.style.height);
+    oDiv.setAttribute("data","2");
+    console.log(oDiv.getAttribute("data"));
+
+</script>
+</body>
+</html>

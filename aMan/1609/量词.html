@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<input type="text" id="text" class="active search" />
+
+<script>
+var oText = document.getElementById("text");
+
+/*oText.onclick=function () {
+    alert(1)
+}*/
+oText.onblur=function () {
+    console.log(this.value);
+    var val = this.value;
+    var reg = /^[a-zA-Z_]{1}\w{5,19}$/;
+
+    console.log( reg.test(val))
+}
+var reg2= /sb/g;
+oText.onkeyup=function () {
+    this.value = this.value.replace(reg2,"**")
+}
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1 { background-color: red; width: 100px; height: 100px}
+    </style>
+</head>
+<body>
+
+<div id="div1"></div>
+
+<script>
+    var oDiv = document.getElementById("div1");
+    oDiv.onclick=function () {
+       console.log(this)
+    };
+    oDiv.onclick();
+
+
+    var obj = {a:11,b:function () {
+        console.log(this.a)
+    }};
+    obj.b();
+
+    function fn1() {
+        console.log(this)
+    }
+    fn1();
+    //this 指的是调用当前方法的对象
+    //如果没有对象调用这个方法，那么this就指向window
+
+</script>
+</body>
+</html>

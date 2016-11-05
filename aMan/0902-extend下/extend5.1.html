@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+
+    function Person(name,sex) {
+        this.name = name;
+        this.sex = sex;
+    }
+    Person.prototype.sayName=function () {
+        alert(this.name)
+    };
+
+    /*继承私有属性*/
+    function SuperStar(name,sex,skill) {
+        //想要把Person里面的this变成Hero里面的this
+        Person.apply(this,[name,sex]);
+        this.skill = skill;
+    }
+
+    /*继承原型属性*/
+    extend(SuperStar,Person);
+
+    SuperStar.prototype.showSkill=function () {
+        alert("唱歌")
+    };
+
+    var zhangXuan = new SuperStar("张轩","男","唱歌");
+    console.log(SuperStar.prototype)
+    console.log(zhangXuan);
+
+
+
+
+
+
+    /*原型链继承的方法*/
+    function extend(child,parent) {
+        function Fn() {};
+        Fn.prototype = parent.prototype;//因为想要继承的只有原型
+        child.prototype = new Fn()//实现原型继承（会把child.prototype里面的东西替换掉）
+        child.prototype.constructor = child;//重新设置constructor
+    }
+
+
+
+
+
+
+</script>
+</body>
+</html>

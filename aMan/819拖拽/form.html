@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        div { padding: 20px;}
+        #text { color: #999}
+        #form1 { border: 1px solid red}
+    </style>
+</head>
+<body>
+
+<form id="form1">
+
+    <div>
+    用户名
+    <input type="text" id="text"  >
+    </div>
+
+    <div>
+    密码
+    <input type="password" id="password" value="">
+    </div>
+
+
+    <div>
+    邮箱
+    <input type="text" id="e-mail" value="" />
+    </div>
+    <div>
+        <input type="reset" id="reset-btn" value="重置">
+    </div>
+    <div>
+        <input type="submit" value="提交">
+    </div>
+
+</form>
+
+
+
+<script>
+
+    var oForm = document.getElementById("form1");
+    var oText = document.getElementById("text");
+    var oEMail = document.getElementById("e-mail");
+    var oResetBtn = document.getElementById("reset-btn");
+
+
+
+
+
+    /*重置事件*/
+    oForm.onreset=function () {
+        /*给用户一次选择的机会，*/
+        var canReset = confirm("您确认要清除所输入的所有内容吗！！！");
+        console.log(canReset);
+
+        /*如果用户取消重置，那么就阻止浏览器默认的重置事件*/
+        if(!canReset){
+            return false;
+        }
+
+        //alert("重置")
+    };
+    /*提交事件*/
+    oForm.onsubmit=function () {
+       //检测输入的内容对不对
+        if(oText.value.length<6){
+            //用户名长度不够
+            console.log("不让提交");
+            return false;
+        }else {
+            console.log("提交")
+        }
+
+    };
+
+</script>
+</body>
+</html>

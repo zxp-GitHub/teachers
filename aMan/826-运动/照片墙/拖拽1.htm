@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+
+* { margin:0; padding:0; }
+#ul1 { width:1100px;position:relative; margin:10px auto; height: 500px; }
+#ul1 li {width:250px; height:150px; float:left; list-style:none; margin:10px;}
+img { width: 100%; height: 100%; user-select: none; -webkit-user-select: none}
+#ul1 .active {border:2px dashed #77f;}
+
+
+</style>
+
+</head>
+
+
+<body>
+<ul id="ul1">
+    <li><img src="img/1.jpg" /></li>
+    <li><img src="img/2.jpg" /></li>
+    <li><img src="img/3.jpg" /></li>
+    <li><img src="img/4.jpeg" /></li>
+    <li><img src="img/5.jpg" /></li>
+    <li><img src="img/6.jpg" /></li>
+    <li><img src="img/7.jpg" /></li>
+    <li><img src="img/8.jpg" /></li>
+    <li><img src="img/9.jpg" /></li>
+	<li><img src="img/10.jpeg" /></li>
+	<li><img src="img/11.jpg" /></li>
+	<li><img src="img/12.jpg" /></li>
+
+</ul>
+
+
+
+<script src="move.js"></script>
+
+<script>
+
+    var oUl = getId("ul1");
+    var aLi = oUl.children;
+    var len = aLi.length;
+    var arrList = [];
+
+    var zIndex  =1;
+
+    /*1、布局转换*/
+    for(var i=0;i<len;i++){
+        aLi[i].style.left = aLi[i].offsetLeft+"px";
+        aLi[i].style.top = aLi[i].offsetTop+"px";
+        //保存图片坐标
+        arrList.push({"left":aLi[i].offsetLeft,"top":aLi[i].offsetTop})
+    }
+    for(var i=0;i<len;i++){
+        aLi[i].style.position="absolute";
+        aLi[i].style.margin = 0;
+    }
+    console.log(arrList)
+
+    /*给所有图片添加拖拽的方法*/
+    for(var i=0;i<len;i++){
+        aLi[i].index = i; /*把下标保存在index 属性里面*/
+        fnDrag(aLi[i],i)
+    }
+
+    function fnDrag(obj,index){
+        /*拖拽的方法*/
+        console.log("给:"+obj+"添加拖拽")
+        obj.onmousedown=function (event) {
+            event = event || window.event;
+            /*鼠标距离图片的坐标*/
+            obj.style.zIndex =  zIndex++;
+            var disX = event.offsetX;
+            var disY = event.offsetY;
+            document.onmousemove=function (event) {
+                event = event || window.event;
+                var mX = event.clientX;
+                var mY = event.clientY;
+
+                /*给图片设置left和top*/
+                obj.style.left = mX-disX+"px";
+                obj.style.top = mY-disY+"px";
+
+                return　false
+            };
+            document.onmouseup=function () {
+
+                document.onmousemove = null;
+                document.onmouseup = null;
+                console.log(index);
+                console.log(arrList[index]);
+                //保存图片坐标 arrList.push({"left":aLi[i].offsetLeft,"top":aLi[i].offsetTop})
+                /*让图片回到原位*/
+                //fnMove(obj,arrList[index])
+                fnMove(obj,{left:arrList[index].left,top:arrList[index].top})
+                //obj.index =index
+            };
+
+            return　false
+        }
+        
+    }
+
+
+</script>
+</body>
+</html>

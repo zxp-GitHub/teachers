@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0; padding: 0;}
+        li { list-style: none; padding: 10px;}
+    </style>
+</head>
+<body>
+
+<form id="form1">
+
+    <ul>
+        <li>用户名：<input type="text" id="username" name="username" /></li>
+        <li><input type="checkbox" /> 记住用户名</li>
+        <li><input type="submit" /></li>
+        <li><a href="../index.html">返回首页</a></li>
+    </ul>
+</form>
+<script src="../cookie.js"></script>
+
+<script>
+    var oForm = document.getElementById("form1");
+    var userName =document.getElementById("username");
+    oForm.onsubmit=function () {
+        var  val = userName.value;
+        if(val!=""){
+            cookie.fnSet("username",val,"/cookie",10);
+            //removeCookie("username","/cookie")
+        }else {
+            /*验证不通过就阻止提交*/
+
+        }
+        return false
+
+    }
+
+</script>
+</body>
+</html>

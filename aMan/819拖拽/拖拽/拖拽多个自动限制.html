@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body { width: 100%;overflow: hidden; }
+        div { background: url("cc.gif") no-repeat 0 0; height: 80px; width: 80px; position: absolute; left: 0; top: 0;}
+    </style>
+</head>
+<body>
+
+<div ></div>
+<div ></div>
+<div></div>
+<div ></div>
+<div ></div>
+<div><img src="cc.gif"></div>
+<div ></div>
+<div ></div>
+<div></div>
+
+<script src="base.js"></script>
+<script>
+
+    var aCart = document.getElementsByTagName("div");
+    for(var i=0;i<aCart.length;i++){
+        /*把所有的猫拿过来循环,让每一个猫都可以拖拽*/
+        fnDrag(aCart[i]);
+        autoRun(aCart[i]);
+    }
+
+    /*封装一个方法，实现拖拽*/
+    function fnDrag(obj) {
+
+        obj.onmousedown=function (event) {
+            event = event || window.event; //事件兼容
+            clearInterval(obj.timer); ///当鼠标按下的时候，把定时器清除
+            var disX = event.offsetX;//鼠标和图片左上角的x距离
+            var disY = event.offsetY;//鼠标和图片左上角的y距离
+
+            /*2、当鼠标按下的时候，添加mousemove*/
+            document.onmousemove=function (event) {
+                event = event || window.event; //事件兼容
+                //鼠标的坐标
+                var mX = event.clientX;
+                var mY = event.clientY;
+
+                //3、让div的left和top等于鼠标的坐标
+                obj.style.left = mX-disX+"px";
+                obj.style.top = mY-disY+"px";
+                return false;
+            };
+            document.onmouseup=function () {
+                /*4、当鼠标抬起的时候,去掉oDiv的move事件*/
+                document.onmousemove = null;
+                document.onmouseup= null;
+                autoRun(obj) //当松开cart的时候，在他自己跑
+            };
+
+            return false;
+        };
+    }
+
+
+    /*自己跑*/
+    function autoRun(obj) {
+        var iSpeed = 1+ parseInt(Math.random()*2);
+        obj.timer =setInterval(function () {
+            var iL =  parseInt(getStyle(obj,"left")); //20px
+
+            /*cart的left》=可视区的宽度是，让他到最左边去*/
+
+            if(iL>= document.documentElement.clientWidth){
+                console.log("跑出去乐儿");
+                iL = -obj.offsetWidth;
+            }
+
+
+            obj.style.left = iL+iSpeed+"px"
+        },50);
+    }
+
+
+</script>
+</body>
+</html>

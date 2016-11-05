@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        * { margin: 0; padding: 0;}
+        html,body{
+            width:100%;
+            height:100%;
+            background:black;
+            overflow:hidden;
+        }
+        .fire1 { position: absolute; width: 4px; height: 10px;  border-radius: 2px;}
+        .fire2 { position: absolute; width: 16px; height: 16px;border-radius:50%; }
+    </style>
+</head>
+<body>
+
+<script src="move.js"></script>
+<script>
+    var fireWorks=[];
+    document.onclick=function(event){
+        event = event||window.event;
+        var obj = new Fire1(event.clientX,event.clientY);
+        fireWorks.push(obj);
+        obj.init();
+    };
+    function Fire1(x,y){
+        this.x = x;
+        this.target = y;
+        this.y = document.documentElement.clientHeight;
+    }
+    Fire1.prototype.init=function(){
+        this.element=document.createElement("div");
+        this.element.style.left=this.x+"px";
+        this.element.style.top=this.y+"px";
+        this.element.className="fire1";
+        this.element.style.backgroundColor = createColor();
+        document.body.appendChild(this.element);
+
+    };
+    /*小烟花*/
+    function Fire2(x,y){
+        this.x = x;
+        this.y = y;
+    }
+    Fire2.prototype.init=function() {
+        this.element = document.createElement("div");
+        this.element.style.left = this.x + "px";
+        this.element.style.top = this.y + "px";
+        this.element.className = "fire2";
+        this.rot = 100;
+        document.body.appendChild(this.element);
+
+        this.num = parseInt(Math.random() * 10 + 40);
+        this.Pieces = [];
+        for (var i = 0; i < this.num; i++) {
+            var temp = document.createElement("div");
+            temp.style.left = 0 + "px";
+            temp.style.top = 0+ "px";
+            temp.className = "fire2";
+            temp.style.backgroundColor = createColor();
+            temp.iSpeedX = Math.random() > 0.5 ? Math.ceil(Math.random() * 20) : Math.ceil(Math.random() * 20) * -1;
+            temp.iSpeedY = Math.random() > 0.5 ? Math.ceil(Math.random() * 20) : Math.ceil(Math.random() * 20) * -1;
+            this.element.appendChild(temp);
+            this.Pieces.push(temp);
+        }
+        ;
+
+
+    };
+
+
+    function createColor(){
+        var r = Math.round(Math.random()*200+55);
+        var b = Math.round(Math.random()*255);
+        var g = Math.round(Math.random()*255);
+        return "rgb("+r+","+g+","+b+")"
+    }
+
+
+    chageView();
+    function chageView(){
+        requestAnimationFrame(function() {
+            for(var i=0;i<fireWorks.length;i++){
+
+                if(!fireWorks[i].boom){
+
+                    if(fireWorks[i].element.offsetTop<=fireWorks[i].target){
+                        document.body.removeChild(fireWorks[i].element);
+                        fireWorks[i].boom = new Fire2(fireWorks[i].x,fireWorks[i].target);
+                        fireWorks[i].boom.init();
+                    }else {
+
+                        fireWorks[i].element.style.top = fireWorks[i].element.offsetTop-20+"px";
+                    }
+
+                    continue;
+                }
+                fireWorks[i].boom.rot-=4;
+                if(fireWorks[i].boom.rot<=10){
+                    document.body.removeChild(fireWorks[i].boom.element)
+                    fireWorks[i] = null;
+                }else{
+                    fireWorks[i].boom.element.style.opacity = fireWorks[i].boom.rot/100;
+                    for(var j=0;j<fireWorks[i].boom.num;j++){
+
+                        var obj =fireWorks[i].boom.Pieces[j];
+                        obj.style.width = obj.offsetWidth*0.96+"px";
+                        obj.style.height = obj.offsetWidth*0.96+"px"
+                        obj.style.left=obj.offsetLeft+obj.iSpeedX+"px";
+                        obj.style.top=obj.offsetTop+obj.iSpeedY+"px";
+                        obj.iSpeedY+=2;
+                    }
+                }
+
+            }
+            for(var i=0;i<fireWorks.length;i++){
+                if(!fireWorks[i]){
+                    fireWorks.splice(i,1)
+                }
+
+            }
+
+            return chageView();
+
+        });
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

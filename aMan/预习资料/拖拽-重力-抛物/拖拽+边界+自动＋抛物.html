@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+<style>
+body, div { margin:0; padding:0;}
+#div1 { width:100px; height:100px; background:url("cc.gif"); background-size: 100% 100%; position:absolute;}
+
+</style>
+
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<body>
+<div id="div1"></div>
+
+<script>
+
+	var oDiv = document.getElementById("div1");
+
+	var prevX,prevY,lX,lY;
+
+
+	oDiv.onmousedown=function(event){
+
+		clearInterval(oDiv.timer)
+		event = event||window.event;
+		var disX = event.clientX-oDiv.offsetLeft;
+		var disY = event.clientY-oDiv.offsetTop;
+
+		prevX = event.clientX; /*当鼠标按下的时候，把鼠标的初始位置先保存起来*/
+		prevY = event.clientY;/**/
+
+		document.onmousemove=function(event){
+			var oEvent = event||window.event;
+
+			var l = oEvent.clientX-disX;
+			var t = oEvent.clientY-disY;
+
+
+			var iW = document.documentElement.clientWidth;
+			var iH = document.documentElement.clientHeight;
+			var maxW = iW-oDiv.offsetWidth;
+			var maxH = iH-oDiv.offsetHeight;
+
+			if(l<0){
+				l=0
+			}
+			if(t<0){
+				t=0
+			}
+			if(l>maxW){
+				l = maxW
+			}
+			if(t>maxH){
+				t = maxH
+			}
+
+			/*oDiv.style.left=l+"px";
+			oDiv.style.top=t+"px";*/
+			setCSS(oDiv,{"left":l,"top":t});//设置css的方法
+
+
+
+			/**/
+			lX = oEvent.clientX - prevX //x 的一个距离
+			lY= oEvent.clientY - prevY; //y 的一个距离
+
+
+
+
+			/*把本次的 鼠标坐标保存起来，以便一下使用*/
+			prevX =  oEvent.clientX;
+			prevY =  oEvent.clientY;
+
+			console.log(lX+","+lY)
+
+
+		};
+
+		document.onmouseup=function(){
+			document.onmousemove = null;
+			document.onmouseup = null;
+
+			iSpeedX = lX;
+			iSpeedY = lY;
+
+			autoMove()
+		}
+
+	};
+
+	var iSpeedX = 5;
+	var iSpeedY = 5;
+
+	autoMove();
+	function autoMove(){
+		oDiv.timer = setInterval(function(){
+
+			iSpeedY+=5;
+
+			var l = oDiv.offsetLeft+iSpeedX; /*div想去的位置*/
+			var t = oDiv.offsetTop+iSpeedY;
+
+			var iW = document.documentElement.clientWidth;
+			var iH = document.documentElement.clientHeight;
+			var maxL = iW-oDiv.offsetWidth;/*div最大的left值*/
+			var maxT = iH-oDiv.offsetHeight;/*div最大的top值*/
+
+			if(l<0){///最左面
+				iSpeedX*=-.9;
+				iSpeedY*=.9;
+				l=0
+			}
+
+			if(l>maxL){///最右面
+				iSpeedX*=-.9;
+				iSpeedY*=.9;
+				l = maxL
+			}
+
+
+			if(t<0){///最上面
+				iSpeedY*=-.9;
+				iSpeedX*=.9;
+				t=0
+			}
+			if(t>maxT){ ///最底下
+				iSpeedY*=-.9;
+				iSpeedX*=.9;
+				t = maxT
+			}
+			console.log(iSpeedY);
+			console.log(iSpeedX);
+			/*当你判断完成以后，设置oDiv的left和top，实现div的移动*/
+			setCSS(oDiv,{"left":l,"top":t})
+		},30)
+
+	}
+
+	function setCSS(obj,json){
+		for(var attr in json){
+			//attr 是属性的名字
+			//json[attr] //属性的值
+			//console.log(attr+":"+json[attr])
+			obj.style[attr] = json[attr]+"px"; //让对象的属性就等于我传进去的属性
+		}
+	}
+</script>
+</body>
+</html>

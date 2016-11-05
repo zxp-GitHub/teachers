@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    function fn1(num) {
+        if(num==51){
+            return 51
+        }
+        return num + fn1(num-2)
+    }
+    fn1(149)
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+/**
+ * Created by hasee on 2016/9/12.
+ */
+$(function () {
+
+    var $list= $(".sct-list");
+    var proData = [];
+    $.get("json/product.json",function (data) {
+        proData = data; //所有的商品
+        addData(1)
+
+
+        $("#page-rows").createPage({
+            pageCount: proData.length/10,
+            current: 1,
+            backFn: function (page) {
+                addData(page)
+            }
+        })
+
+    })
+    
+    
+    function addData(page) {
+        page--;
+        var str = "";
+        for(var i=0;i<10;i++){
+
+            str+='<li>' +
+                '<a href="###"><img src="'+proData[page*10+i].img+'" alt=""></a>' +
+                '<div class="pad5">' +
+                '<p><a  href="###">'+proData[page*10+i].name+'</a></p>' +
+                '<p class="ovfl">' +
+                '<em class="fl font-b font14 price-color">'+proData[page*10+i].price+'</em>' +
+                '<span class="fr color99">销量:'+proData[page*10+i].sellerNum+'</span>' +
+                '</p>' +
+                '</div>' +
+                '</li>'
+        }
+        $list.html(str);
+    }
+
+
+});

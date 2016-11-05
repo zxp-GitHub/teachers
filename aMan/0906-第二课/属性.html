@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="jquery-1.7.2.min.js"></script>
+
+<form>
+
+    <input type="text" class="text" data-id="text-name" >
+    <input type="checkbox" class="ch-box"  >
+</form>
+
+<script>
+    $(".text").attr("data-id","100");
+   console.log($(".text").attr("data-id"));
+
+    //attr获取写在元素标签上面的属性
+   console.log($(".ch-box").prop("title"));
+    //prop 能获取到你没有写在标签上的属性(表自带的)
+    //checked
+    $(".ch-box").prop("checked",true)
+
+</script>
+</body>
+</html>

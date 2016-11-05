@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<ul class="product-list" id="list">
+    <li class="item">1</li>
+    <li class="item">2</li>
+    <li class="item">3</li>
+    <li class="item">4</li>
+    <li class="item item5 itemli">5</li>
+    <li class="item-2">5</li>
+</ul>
+
+<div class="item">
+    <p class="text"></p>
+</div>
+<div class="item1"></div>
+<script>
+
+    var oList = document.getElementById("list");
+
+    //在什么元素里面，同class名获取元素
+    function getEleByClass(parent,classStr) {
+        /*把所有的元素都获取过来，让后对比元素的class名是否等于classStr*/
+        var elements = parent.getElementsByTagName("*");//获取所有的标签
+        console.log(elements);
+       // var reg = /\bclassStr\b/;
+        var reg = new RegExp("\\b"+classStr+"\\b");
+        //需要变量拼接的时候使用new RegExp;
+        console.log(reg);
+
+        var arr = []; //装class是classStr的元素的 数组
+
+        for(var i=0;i<elements.length;i++){//把所有元素拿过来循环
+            //"item1 item5" == "item"
+            //   "item1  item5"          /\bitem\b/
+            ///"item1 item item5".search(reg)
+            if(elements[i].className.search(reg)!=-1){
+                arr.push(elements[i]) //放在要返回的数组里面
+            }
+        }
+        return arr
+    }
+    //getEleByClass(document.body,"text")
+    console.log(getEleByClass(oList,"item"))
+</script>
+</body>
+</html>

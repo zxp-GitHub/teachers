@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Title</title>
+    <style>
+
+        * { margin: 0; padding: 0;}
+        li { list-style: none}
+        .ovfl { overflow: hidden}
+        .fl { float: left}
+        .fr { float: right}
+        img { width: 50px; height: 50px; border-radius: 6px; }
+        .phone { width: 300px; height: 500px; border: 1px solid #ccc; overflow: hidden; margin: 20px auto;
+            border-radius: 10px; box-shadow: 0 0 5px #000; padding: 10px 10px;;
+        }
+        .header { height: 20px; text-align: center}
+        .header span { display: inline-block; position: relative;
+            top:-4px;; background-color: #666; width: 35px; height: 12px; border-radius: 6px;}
+
+        #list-wrap {border: 1px solid #ccc; height: 400px; padding: 16px;border-radius: 4px;
+            background-color: #eee; overflow-y: scroll;}
+        #msg-list { }
+        #msg-list li { overflow: hidden; margin: 10px 0;}
+        .message { line-height: 30px; margin-top: 10px; padding: 5px 10px; max-width: 160px;}
+        .user1 img {  float: left;}
+        .user1 .message {float: left; margin-left: 10px; background-color: #fff; border-radius: 6px;}
+
+        .user2 img {  float: right}
+        .user2 .message {float: right; margin-right: 10px;  background-color: #7f0; border-radius: 6px;}
+
+        .control { padding: 10px 0}
+        .select-user { margin-left: 3px; position: relative; width: 60px; border: 1px solid #ccc; line-height: 32px;height: 30px; text-align: center}
+        .user { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; cursor: pointer }
+        #user-list { display: none; position:absolute; border-radius: 4px; width: 120px; left: 0; bottom: 35px; background-color: #fff; border: 1px solid #ccc;}
+        #user-list li{ border-bottom: 1px solid #ccc; cursor: pointer}
+        #msg-box { width:170px; height: 30px; line-height: 30px; text-indent: 10px; margin: 0 5px;
+            border-radius: 4px;}
+        #send { height: 30px; width: 50px; cursor: pointer ;border: none; line-height: 30px;
+            text-align: center; background-color: #00a0e9; color: #fff;
+        border-radius: 4px;}
+
+    </style>
+
+</head>
+<body>
+    <div class="phone">
+
+        <!--头部-->
+        <div class="header">
+            <span></span>
+        </div>
+
+
+        <!--内容-->
+        <div id="list-wrap">
+            <ul class="list" id="msg-list">
+                <li class="user1">
+
+                    <img src="1.jpg">
+                    <p class="message">Hi 史塔克</p>
+                </li>
+                <li class="user2">
+                    <img src="2.jpg">
+                    <p class="message">Hi 莉莉妮特</p>
+                </li>
+            </ul>
+        </div>
+        <!--可控区域-->
+        <div class="control ">
+            <div class="select-user fl">
+                <p class="user" id="user" data-id="1">莉莉妮特</p>
+                <ul id="user-list">
+                    <li data-id="2">史塔克</li>
+                    <li data-id="1">莉莉妮特</li>
+                </ul>
+            </div>
+
+            <input type="text" id="msg-box" class="fl" />
+            <input type="button" id="send" class="fl" value="发送" />
+
+        </div>
+
+    </div>
+
+
+<script src="js/base.js"></script>
+<script>
+    var oList = $('msg-list');  /*消息列表*/
+    var oUser = $('user'); /*用户名*/
+    var oUserList = $('user-list');/*用户列表*/
+    var aUserArr = oUserList.children; /*用户数组*/
+    var oBox = $('msg-box');/*消息框*/
+    var oSend = $('send');/*发送按钮*/
+    var oListWrap = $('list-wrap');
+
+
+    /*显示用户列表*/
+    oUser.onclick=function(event){
+        oUserList.style.display="block";
+
+        event  = event ||window.event;
+        if(event.stopPropagation){
+            event.stopPropagation()
+        }else {
+            event.cancelBubble=true
+        }
+
+    };
+
+    /*切换用户*/
+    for(var i=0;i<aUserArr.length;i++){
+
+        aUserArr[i].onclick=function(){
+            oUser.innerHTML=this.innerHTML;
+
+          // alert(this.getAttribute("data-id"))
+            oUser.setAttribute("data-id",this.getAttribute("data-id"))
+            oUserList.style.display="none";
+        }
+    }
+    /*点击空白隐藏用户列表*/
+    document.onclick=function(){
+        oUserList.style.display="none";
+    }
+
+    /*发送消息*/
+    oSend.onclick=function(){
+        var msg = oBox.value;
+        if(msg==""){
+            alert("请输入内容")
+        }else {
+
+            var userNum = oUser.getAttribute("data-id");/*现在是第几个用户*/
+
+           /* if(oUser.innerHTML=="莉莉妮特"){
+                userNum = 1;
+            }*/
+
+            /*创建一条消息*/
+            var oLi = document.createElement("li");
+            oLi.className="user"+userNum;
+            oLi.innerHTML='<img src="'+userNum+'.jpg" /><p class="message">'+msg+'</p>';
+
+            oList.appendChild(oLi);
+
+            oListWrap.scrollTop="10000000000";
+            oBox.value="";
+
+        }
+
+    }
+
+
+
+
+</script>
+</body>
+</html>

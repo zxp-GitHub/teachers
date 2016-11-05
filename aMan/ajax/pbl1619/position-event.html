@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0; padding: 0;}
+        img { vertical-align: top}
+        .main { margin: 0 auto; width: 888px }
+        .item { position: absolute;}
+        .info { padding: 5px; height: 50px; border: 1px solid #ccc}
+        button { width: 100%; height: 30px; line-height: 30px; border: none; background-color: #ee5555;color: #fff; cursor: pointer}
+
+
+    </style>
+</head>
+<body>
+
+<div class="main">
+
+</div>
+
+
+<script src="js/jquery-1.7.2.min.js"></script>
+
+<script>
+
+    var $main = $(".main");
+    /*可视区的宽度*/
+    var iListW = 220;
+    var iW = $(window).width();
+
+    var bOver = true;
+
+    var size = Math.floor(iW/iListW); //总共有多少列
+    var arrL = [0,220,440,660,880];
+    var arrT = [0,0,0,0,0];
+    addData();
+
+
+    $(window).resize(function () {
+        var oldSize = size;
+        //当窗口大小发生改变的时候，重新获取宽度
+        var iW = $(window).width();
+        size = Math.floor(iW/iListW); //总共有多少列
+        console.log("本次的"+size+";上次的"+oldSize);
+
+        //当列数发生改变的时候
+        if(size!=oldSize){
+            //把所有图片拿过来重新排序
+            arrT = [0,0,0,0,0];
+            $(".item").each(function () {
+                //获取最小列
+                var minIndex = getMin();
+                 $(this).stop().animate({"top":arrT[minIndex],"left":arrL[minIndex]});
+                //下一张图片的高度 =  是当前的高度    + item的高度        + 间距
+                arrT[minIndex]   = arrT[minIndex]  + $(this).height()  + 20;
+            })
+        }
+
+    });
+
+
+
+    $(window).scroll(function () {
+
+        var minIndex= getMin();
+
+        var iH  = arrT[minIndex] +$main.offset().top;
+        var iScrollH = iH - $(this).height();
+
+        if($(this).scrollTop()>=iScrollH){
+            if(!bOver){
+                // 如果上一次没有完成，这次就不加载
+                return
+            }else {
+                //加载完成了，就执行本次加载
+                bOver = false;//先关开关
+                console.log("加载数据");
+                setTimeout(function () {
+                    addData();
+                },1000);
+            }
+        }
+
+
+    });
+
+
+    
+    function addData() {
+        $.get("pbl.json",function (data) {
+            console.log(data);
+
+            for(var i=0;i<data.length;i++){
+
+                var iH = parseInt(data[i].height)*(200/parseInt(data[i].width));
+                var minIndex = getMin();
+
+                $('<div class="item" style="left:'+arrL[minIndex]+'px; top:'+arrT[minIndex]+'px"><img  src="'+data[i].src+'" width="200" height="'+iH+'"  /><div class="info"><p>同学'+i+'</p><button>添加到购物车</button></div></div>').appendTo($main);
+
+                //下一个item的高度 =  是当前的高度    + 图片高度 + 间距 +文字和按钮
+                arrT[minIndex]    = arrT[minIndex] + iH        + 20 + 60;
+            }
+
+            bOver  =true;
+
+         
+
+        });
+    }
+
+
+
+    
+    function getMin() {
+        //arrT = [0,0,0,0]
+        var index= 0;
+        var min = arrT[index] //9999999999999;
+        for(var i=0;i<size;i++){
+            if(arrT[i]<min){
+                min =arrT[i];
+                index =i;
+            }
+        }
+        return index
+    }
+
+
+    $(document).on("click","button",function () {
+        alert("添加到购物车")
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link  id="link" href="css2.css" rel="stylesheet" type="text/css" />
+
+</head>
+<script >
+	function changeSkin(index){
+		/*
+		if(index == 1){
+			document.getElementById("link").href = "css1.css";
+		} else {
+			document.getElementById("link").href = "css2.css";
+		}
+		*/
+		document.getElementById("link").href = "css"+index+".css";
+	}
+</script>
+<body>
+
+<dl id="message">
+	<form>
+		<dt>
+			<strong>可以换肤的提交框：</strong>
+			<input id="btn1" type="button" value="皮肤1" />
+			<input id="btn2" type="button" value="皮肤2" />
+		</dt>
+		<dd>输入姓名：<input class="text" type="text" /></dd>
+		<dd>输入密码：<input class="text" type="password" /></dd>
+		<dd>请您留言：<textarea></textarea></dd>
+		<dd class="center"><input class="btn" type="submit" value="提交" /></dd>
+	</form>
+</dl>
+<script type="text/javascript">
+	var oLink = document.getElementById("link");
+	document.getElementById("btn1").onclick=function(){
+		oLink.href = "css1.css";
+	}
+	document.getElementById("btn2").onclick=function(){
+		oLink.href = "css2.css";
+	}
+</script>
+
+</body>
+</html>

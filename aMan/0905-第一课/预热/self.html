@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1 { width: 100px; height: 100px; background-color: red;}
+    </style>
+
+    <script>
+
+/*
+    $(function () {
+
+        oDiv =document.getElementById("div1");
+        $("#div1").click(function () {
+            //console.log(this.index()); //=>oDiv
+            console.log($(this).index()) //=>$(oDiv)
+        });
+        $("li").click(function () {
+            // console.log(this); //=>当前点击的li
+            console.log( $(this).index()) //=>$(当前点击的li)
+        });
+    });*/
+  
+
+  
+  function $(arg1) {
+      //var arg1 = arguments[0];
+      /*如果参数是一个方法，那就等页面加载完成以后执行*/
+      if(typeof arg1 === "function"){
+          window.onload=arg1;//window.addEventListener( "load",arg1);
+          //document.addEventListener( "DOMContentLoaded",arg1);
+      }else if(typeof arg1 === "string"){
+          /*如果是字符串*/
+          if(arg1.charAt(0)==="#"){
+              console.log("id");
+
+              return document.getElementById(arg1.substring(1))
+          }else if(arg1.charAt(0)==="."){
+              console.log("className");
+
+              return document.getElementsByClassName(arg1.substring(1))
+          }else {
+              console.log("tagName");
+              return document.getElementsByTagName(arg1)
+          }
+      }
+  }
+    $(function () {
+        console.log($("#div1"));
+        console.log($(".list"));
+        console.log($("li"));
+    });
+
+    </script>
+</head>
+<body>
+
+<div id="div1"></div>
+<ul class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+
+</body>
+</html>

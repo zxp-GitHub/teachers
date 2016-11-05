@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<audio src="TFBOYS%20-%20大梦想家.mp3" id="music" ></audio>
+<button id="btn">唱歌</button>
+<script>
+
+
+    function Person(name,sex) {
+        this.name = name;
+        this.sex = sex;
+    }
+    Person.prototype.sayName=function () {
+        alert(this.name)
+    };
+
+    function SuperStar(name,sex,skill) {
+        //想要把Person里面的this变成Hero里面的this
+        Person.apply(this,[name,sex]);
+        this.skill = skill;
+    }
+
+    SuperStar.prototype = Person.prototype;
+
+    SuperStar.prototype.showSkill=function () {
+        oMusic.play();
+    };
+
+   var oMusic = document.getElementById("music");
+    var oBtn = document.getElementById("btn");
+    var huge = new SuperStar("huge","nan","唱歌");
+    console.log(huge);
+   // huge.sayName()
+
+
+
+
+
+    var yao = new Person("瑶","女");
+    //console.log(yao);
+    oBtn.onclick=function () {
+        huge.showSkill();
+    };
+    //yao.showSkill()
+
+
+
+
+
+
+</script>
+</body>
+</html>

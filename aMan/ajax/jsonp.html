@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="jquery-1.7.2.min.js"></script>
+
+<script>
+
+    var json = JSON.stringify({"page":1,"pageRows":2,"sortType":2,"sort":1,"cateId":"1001001"});
+    var sendData = "CODE=125&JSON="+json;
+
+    //普通的ajax方法，发送的数据，必须是一个字符串；
+
+    //jsonp用法
+    $.ajax({
+        url:"http://www.wookmark.com/api/json/popular?callback=?",
+        type:"get",
+        processData:true, ///设置data是否可以是js对象
+        timeout:10000,//服务器超时 时间
+        dataType:"jsonp",//返回数据的类型
+        data:{page:20}, //参数
+        success:function (data) {
+
+            console.log(data)
+        },
+        error:function () {
+            alert("error")
+        }
+    });
+
+    //jsonp用法
+    $.getJSON("http://www.wookmark.com/api/json/popular?callback=?",{page:1},function (data) {
+        
+    })
+
+</script>
+</body>
+</html>

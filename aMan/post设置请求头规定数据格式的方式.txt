@@ -1,0 +1,30 @@
+﻿FORM元素的enctype属性指定了表单数据向服务器提交时所采用的编码类型
+ 
+ 
+我 们知道在通过POST方式向服务器发送AJAX请求时最好要通过设置请求头来指定为application/x-www-form-urlencoded 编码类型。知道通过表单上传文件时必须指定编码类型为"multipart/form-data"。而text/plain是我们在做纯文本传输时防止接 收数据时出现编码混乱而设置的。为什么要这么设置?以下三者的区别。
+ 
+ 
+application/x-www-form-urlencoded
+这 是通过表单发送数据时默认的编码类型。我们没有在from标签中设置enctype属性时默认就是application/x-www-form- urlencoded类型的。application/x-www-form-urlencoded编码类型会把表单中发送的数据编码为“名称/值”对。 这是标准的编码格式。当表单的ACTION为POST的时候，浏览器把form数据封装到http body中，然后发送到服务器。当表单的ACTION 为GET的时候，application/x-www-form-urlencoded编码类型会把表单中发送的数据转换成一个字符串 (name=coderbolg&key=php),然后把这个字符串附加到URL后面，并用?分割，接着就请求这个新的URL。当我们通过 POST方式向服务器发送AJAX请求时最好要通过设置请求头来指定为application/x-www-form-urlencoded编码类型。方 法是在xmlobject.open()方法之后添加xmlobject.setRequestHeader("Content- Type","application/x-www-form-urlencoded") 不然服务器会接收不到POST过来的数据。
+ 
+ 
+multipart/form-data
+然 而，在向服务器发送大量的文本、包含非ASCII字符的文本或二进制数据时“application/x-www-form-urlencoded”这种 编码方式效率很低。在文件上载时，所使用的编码类型应当是“multipart/form-data”，它既可以发送文本数据，也支持二进制数据上载。
+ Browser 端<form>表单的ENCTYPE属性值为multipart/form-data，它告诉我们传输的数据要用到多媒体传输协议，由于多媒 体传输的都是大量的数据，所以规定上传文件必须是post方法，<input>的type属性必须是file。(表单里有图片上传用 ENCTYPE="multipart/form-data")。
+<form name="userInfo" method="post" action="first_submit.jsp"    ENCTYPE="multipart/form-data">
+表单标签中设置enctype="multipart/form-data"来确保匿名上载文件的正确编码。如下：
+<tr>
+      <td height="30" align="right">上传企业营业执照图片：</td>
+      <td><INPUT TYPE="FILE" NAME="uploadfile" SIZE="34"    onChange="checkimage()"></td>
+</tr>
+当 表单中有file类型控件并希望它正常工作的话，就必须设置成multipart/form-data类型，浏览器会把整个表单以控件为单位分割，并为每 个部分加上Content-Disposition(form-data或者file),Content-Type(默认为 text/plain),name(控件 name)等信息，并加上分割符（boundary)。
+ 
+注：enctype="multipart/form-data"是上传二进制数据; form里面的input的值以2进制的方式传过去。
+form里面的input的值以2进制的方式传过去，所以request就得不到值了。 也就是说加了这段代码,用request就会传递不成功,取表单值加入数据库时，用到下面的：
+SmartUpload su = new SmartUpload();//新建一个SmartUpload对象
+su.getRequest().getParameterValues();取数组值
+su.getRequest().getParameter( );取单个参数单个值
+ 
+ 
+text/plain
+数据以纯文本形式进行编码，其中不含任何控件或格式字符

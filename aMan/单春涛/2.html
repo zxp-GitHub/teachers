@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+		var k=0,c=0;
+			var arr = [10,20,8,8,9,3,2,1,2,2,2,8];
+			function superSort(arr){
+				for (var i = arr.length-1;i>0;i--) {
+					c++;
+					document.write("第"+c+"<br />")
+			document.write("1没有"+arr+"<br />");
+					for (var j =0;j<i;j++ ) {
+			document.write("2没有"+arr+"<br />");
+			document.write(arr[j]+"对比"+arr[i]+"<br />");
+						k++;
+						if (arr[i]>arr[j]) {
+							var temp = arr[j];
+							arr[j]=arr[i];
+							arr[i]=temp;
+			document.write("排序"+arr+"<br />");
+						}else if (arr[i]==arr[j]) {
+							arr.splice(i,1);
+			document.write("去重"+arr+"&nbsp;删除"+arr[i-1]+"k="+k+"<br />");
+						}
+					}
+				}
+				return arr;
+			}
+			document.write("初始"+arr+"<br />");
+			document.write("最后结果"+superSort(arr)+"<br />"+k);
+			
+		</script>
+	</body>
+</html>

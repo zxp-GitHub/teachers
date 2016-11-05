@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div { background: url("cc.gif") no-repeat 0 0; height: 80px; width: 80px; position: absolute; left: 0; top: 0;}
+    </style>
+</head>
+<body>
+<div ></div>
+<div ></div>
+<div></div>
+<div ></div>
+<div ></div>
+<div></div>
+<div ></div>
+<div ></div>
+<div></div>
+
+<script src="base.js"></script>
+<script>
+
+    var aCart = document.getElementsByTagName("div");
+    for(var i=0;i<aCart.length;i++){
+        /*把所有的猫拿过来循环,让每一个猫都可以拖拽*/
+        fnDrag(aCart[i]);
+    }
+
+
+
+   // var oDiv = $("div1");
+
+    /*调用拖拽方法*/
+
+
+
+    /*封装一个方法，实现拖拽*/
+    function fnDrag(obj) {
+
+        obj.onmousedown=function (event) {
+            event = event || window.event; //事件兼容
+
+            console.log(event.offsetX); //鼠标和图片左上角的x距离
+            console.log(event.offsetY);//鼠标和图片左上角的y距离
+            var disX = event.offsetX;
+            var disY = event.offsetY;
+
+            console.log("down");
+            /*2、当鼠标按下的时候，添加mousemove*/
+            document.onmousemove=function (event) {
+                event = event || window.event; //事件兼容
+
+                //鼠标的坐标
+                var mX = event.clientX;
+                var mY = event.clientY;
+
+                //3、让div的left和top等于鼠标的坐标
+                obj.style.left = mX-disX+"px";
+                obj.style.top = mY-disY+"px";
+            };
+            document.onmouseup=function () {
+                /*4、当鼠标抬起的时候,去掉oDiv的move事件*/
+                document.onmousemove = null;
+                document.onmouseup= null;
+            }
+
+        };
+    }
+
+
+
+</script>
+</body>
+</html>

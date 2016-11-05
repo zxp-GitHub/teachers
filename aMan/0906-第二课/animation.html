@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1 { position: absolute; left: 0; top: 0; width: 100px; height: 100px; background-color: skyblue}
+        button { position: absolute; top: 200px;}
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<button>运动</button>
+<script src="jquery-1.7.2.min.js"></script>
+<script src="jquery.easing.min.js"></script>
+<script>
+
+    /*fnMove(oDiv,{"left":100},function () {
+        alert("ok")
+    })*/
+    $("button").click(function () {
+        $("#div1").animate({"left":600,"width":200},1000,function () {
+            //alert("ok")
+        })
+    })
+
+
+
+</script>
+</body>
+</html>

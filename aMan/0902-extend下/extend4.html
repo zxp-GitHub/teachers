@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+
+    function Person(name,sex) {
+        this.name = name;
+        this.sex = sex;
+    }
+    Person.prototype.sayName=function () {
+        alert(this.name)
+    };
+    Person.prototype.setName=function (newName) {
+        this.name = newName
+    };
+
+    function SuperStar(name,sex,skill) {
+        //想要把Person里面的this变成Hero里面的this
+        Person.apply(this,[name,sex]);
+        this.skill = skill;
+    }
+
+    SuperStar.prototype = new Person();
+    SuperStar.prototype.showSkill=function () {
+
+        alert("唱歌")
+    };
+
+
+ var zhangXuan = new SuperStar("张轩","null","唱歌")
+    console.log(zhangXuan)
+var jiangge = new Person("姜戈","男")
+
+
+    Person.prototype.sayName=function () {
+        alert("升级版"+this.name)
+    }//可以改变自己和子类的原型方法
+    
+    
+    zhangXuan.sayName()//继承person
+    zhangXuan.showSkill() //自己的方法
+
+    jiangge.sayName() //自己的sayname方法
+    jiangge.showSkill()//没有SuperStar的showSkill方法
+
+
+/*原型链*/
+
+
+
+
+</script>
+</body>
+</html>

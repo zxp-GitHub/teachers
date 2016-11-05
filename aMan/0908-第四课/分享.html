@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<script>
+
+    ///call caller callee
+
+    var fullname = 'John Doe';
+    var obj = {
+        fullname: 'Colin Ihrig',
+        prop: {
+            fullname: 'Aurelio De Rosa',
+            getFullname: function() {
+                return this.fullname;
+            }
+        }
+    };
+    console.log(obj.prop.getFullname());//obj.prop.fullname
+    console.log(obj.prop.getFullname.call(obj));//obj.fullname
+    window.test = function() {
+        return this.fullname;
+    };
+    console.log(window.test.call(obj.prop))
+</script>
+</body>
+</html>

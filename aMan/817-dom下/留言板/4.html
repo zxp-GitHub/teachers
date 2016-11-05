@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0; padding: 0;}
+        .list-wrap { margin: 20px auto; width: 500px; border: 1px solid #ccc; padding: 10px;}
+        #list {}
+        #list li { list-style: none; padding: 10px; overflow: hidden; border-bottom: 1px dashed #ccc}
+        #list img { float: left; width: 80px; height: 80px;}
+        #list .info { float: left; width: 260px; margin: 0 20px}
+        #list .opts { float: left;}
+        #list .opts a { display: none}
+        #list li:hover .opts a { display: block}
+        .btn-wrap { overflow: hidden}
+        #publish { margin: 10px; padding: 10px; float: right}
+
+        #box-wrap { background-color: rgba(0,0,0,0.5); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none}
+        .box-cont { background-color: #FFF; width: 500px; height: 300px;position: absolute; left: 50%; top: 50%; margin-left: -270px; margin-top: -170px; padding: 20px;text-align: center;
+        }
+
+        #close-btn { position: absolute; right: 15px; top: 5px; font-size: 30px; color: #666;}
+        #text-cont { width: 500px; margin: 30px 0; height: 200px;}
+
+        #sure-btn { padding: 10px;}
+    </style>
+</head>
+<body>
+
+
+    <div class="list-wrap">
+
+        <ul id="list">
+
+            <li>
+                <img src="1a.jpg">
+                <p class="info">文文字字</p>
+                <div class="opts">
+                    <p>2016-8-17</p>
+
+                </div>
+            </li>
+            <li>
+                <img src="1a.jpg">
+                <p class="info">文文字字</p>
+                <div class="opts">
+                    <p>2016-8-17</p>
+                    <a></a>
+                </div>
+            </li>
+        </ul>
+        <div class="btn-wrap">
+            <button id="publish">发布留言</button>
+        </div>
+
+    </div>
+
+<div id="box-wrap">
+    <div class="box-cont">
+
+        <a href="javascript:;" id="close-btn">x</a>
+        <textarea id="text-cont"></textarea>
+        <button id="sure-btn">确认发布</button>
+    </div>
+
+</div>
+
+<script>
+    /*功能1 显示和隐藏留言框*/
+
+    /*获取发布按钮*/
+    var oPublishBtn = document.getElementById("publish");
+    /*获取留言框*/
+    var oBoxWrap = document.getElementById("box-wrap");
+    /*获取关闭按钮*/
+    var oCloseBtn = document.getElementById("close-btn");
+    /*给发布按钮添加事件*/
+    oPublishBtn.onclick=function () {
+        //alert("显示留言框")
+        //让留言框显示
+        oBoxWrap.style.display="block"
+    };
+    /*点击关闭按钮的时候，隐藏留言框*/
+    oCloseBtn.onclick=function () {
+        oBoxWrap.style.display="none"
+    };
+
+
+
+
+    /*功能2 实现留言*/
+    var oSurebtn = document.getElementById("sure-btn"); //确认按钮
+    var oTextCont = document.getElementById("text-cont"); // 用户输入的内容
+    var oList = document.getElementById("list");//留言的列表
+
+    /*给确认按钮加事件*/
+    oSurebtn.onclick=function () {
+        var val = oTextCont.value;
+        if(val==""){
+            /*用户什么都没输入 ,不能提交*/
+            alert("请输入内容")
+        }else{
+            //如果用户输入内容了，就创建一条留言
+
+            /*需要先创建一个li，给li设置内容，把li放在留言列表里面*/
+
+            //1、需要先创建一个li
+            var oLi = document.createElement("li");
+
+            //2、给li添加内容
+            //val 就是用户输入的内容
+            //alert('用户输入的内容是：'+val);
+            var now = getTime(); //getTime是用来获取时间的 //2016-8-17
+            oLi.innerHTML='<img src="1a.jpg"><p class="info">'+val+'</p><div class="opts"><p>'+now+'</p><a href="javascript:;">删除</a></div>';
+
+            //3、把li放在oList里面
+            oList.appendChild(oLi)//在oList插入一个li
+
+            /*添加删除功能*/
+            console.log(oLi.getElementsByTagName("a")[0]);//获取删除按钮
+
+            //4、给a标签添加事件
+            oLi.getElementsByTagName("a")[0].onclick=function () {
+                //在列表中删除 当前的li
+                //oLi == this.parentNode.parentNode
+                oList.removeChild(oLi)
+            };
+            /*发布完留言，还需要关闭留言框*/
+            oBoxWrap.style.display = "none"
+        }
+    };
+    //得到当前的时间
+    function getTime() {
+        var oDate = new Date();
+        var iY = oDate.getFullYear();
+        var iM = oDate.getMonth()+1;
+        var iD = oDate.getDate();
+        console.log(iY+"-"+iM+"-"+iD);
+        var time = iY+"-"+iM+"-"+iD;
+        return time;
+        //2016-8-17
+    };
+    //getTime()
+</script>
+</body>
+</html>

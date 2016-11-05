@@ -1,0 +1,162 @@
+r<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="css/base.css" rel="stylesheet" />
+
+    <style>
+        #wrap { width: 100%; height: 500px; overflow: hidden; position: relative;  }
+        #pic-list { height: auto; position: relative; left: 0; top: 0; width: 100%; white-space: nowrap; font-size: 0; vertical-align: top}
+        #pic-list li {  display: inline-block; width: 100%; overflow: hidden; height: 500px; }
+        #wrap img { width: 1920px; height: 600px; position: relative; left: 50%; margin-left: -960px;}
+
+        .tg-btn { position: absolute; top: 50%; margin-top: -25px; height: 50px; line-height: 50px; width: 60px; background-color: rgba(0,0,0,.3);color: rgba(255,255,255,.8); font-size: 30px; text-align: center; left: 0; display: none; font-family:"inherit" ;font-weight: bold}
+
+        #next { right:0; left: auto}
+
+        #wrap:hover .tg-btn { display: block}
+       .tg-btn:hover { background-color: rgba(0,0,0,.5); color: #fff; text-shadow: 0 0 3px #fff}
+
+
+
+
+        #btn-list { position: absolute; left: 0; bottom: 0; width: 100%; overflow: hidden; text-align: center; line-height: 30px; }
+        #btn-list li { display: inline-block; height: 14px; width: 14px; margin: 0 10px; border-radius: 50%; cursor: pointer;background-color:  #ccc; border: 2px solid #fff;}
+        #btn-list .active {background-color:  #ff7700}
+    </style>
+</head>
+<body>
+
+
+
+<div id="wrap">
+
+
+    <ul id="pic-list">
+        <li><a href="###"><img src="images/nav-ban1.jpg"></a></li>
+        <li><a href="###"><img src="images/nav-ban2.jpg"></a></li>
+        <li><a href="###"><img src="images/nav-ban3.jpg"></a></li>
+    </ul>
+
+    <ul id="btn-list">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <a class="tg-btn" id="prev" href="javascript:;"><</a>
+    <a class="tg-btn" id="next" href="javascript:;">></a>
+</div>
+
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+
+    /*获取元素*/
+    var $prev = $("#prev");
+    var $next = $("#next");
+    var $list = $("#pic-list");
+    var $picLi = $("#pic-list li");
+    var $btnLi = $("#btn-list li");
+    var $wrap = $("#wrap");
+
+    /*可能会用的变量*/
+    var iNow = 0;
+    var iW = $picLi.outerWidth();//用百分比替换li的宽度
+    var len = $picLi.length;
+    var timer = null;
+    var animated =true;
+    //1、把li 下标是0的那个，复杂，然后插入到list里面
+    //$picLi.eq(0).clone().appendTo($list);
+
+
+
+
+   // 2、创建一个li，让他的img个第一个的图片一样，然后添加到list里面
+    console.log($picLi.eq(0).find("img").attr("src"))//第一个图片的src
+    var src = $picLi.eq(0).find("img").attr("src");
+    $('<li><a href="###"><img src="'+src+'"></a></li>').appendTo($list);
+
+
+
+      autoPlay()
+
+
+    /*右按钮事件*/
+//  $next.click(function () {
+//  	 
+//      toNext()
+//  });
+      $next.click(toNext);
+
+
+    /*左按钮事件*/
+    $prev.click(function () {
+        if(!animated) {
+            console.log("不能开始下一次")
+            return
+        }
+
+        if(iNow<=0){
+            iNow = len;
+            $list.css({"left":-iNow*100+"%"})//到最后的位置
+        }
+        iNow--;
+        changeView()
+    });
+
+    $btnLi.click(function () {
+    	 
+        iNow = $(this).index();//让iNow=当点击的按钮的下标
+       
+        changeView()
+    });
+
+
+    $wrap.hover(function () {
+        clearInterval(timer)
+    },function () {
+        autoPlay()
+    });
+    
+    function changeView() {
+        //在运动的时候，先stop之前的运动
+        //开始运动的时候让animated = false;
+        animated = false;
+        $list.stop().animate({"left":-100*iNow+"%"},function () {
+            //运动结束
+            console.log("运动结束");
+            animated = true;
+        });
+        $btnLi.removeClass("active").eq(iNow%len).addClass("active")
+    }
+
+
+
+
+    function autoPlay() {
+       timer =setInterval(toNext,1000)
+    }
+
+
+    /*去下一个*/
+    function toNext() {
+        //点击按钮的时候，先判断，上一次运动有没有结束
+        if(!animated) {
+            console.log("不能开始下一次")
+            return
+        }
+
+
+        if(iNow>=len){ //判断到最后了，还要显示下一张，那就跳到第一张，运动到第二张
+            iNow =0;
+            $list.css({"left":0}) //跳到第一张
+        }
+        iNow++;
+
+        changeView()
+    }
+</script>
+</body>
+</html>

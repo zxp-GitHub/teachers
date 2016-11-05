@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    var str = "aabcccerossoooooooaaaaa";
+
+    /*a:6
+    * b:2
+    * c:5
+    * o:8
+    * */
+    var obj = {};
+    obj["a"] = 1;
+    for(var i=0;i<str.length;i++){
+        console.log(str[i]);
+
+        if(obj[str[i]] == undefined){//当前这个字符第一次出现
+            //obj["a"] 没有，等于undefined
+            //obj["a"] = 1
+            obj[str[i]] = 1
+        }else {  //不是第一次出现的话，让他累加
+            //obj["a"] 的值不是undefined，说明obj里面已经有a这个属性了
+            obj[str[i]]+=1
+        }
+    }
+    console.log(obj);
+
+    var max = 0; /*假设最多的次数是0次*/
+    var maxName = str[0];/*假设出现最多的字符是第一个字符，（可以不设置）*/
+    for(var attr in obj){
+        //console.log(attr) //属性的名子（string类型）
+        //console.log(obj[attr]) //属性值
+        if(obj[attr]>max){
+            /*如果有一个值比最大值要大*/
+            max = obj[attr];
+            maxName = attr
+        }
+    };
+
+    console.log("出现最多的字符是"+maxName+",出现的次数是"+max+"次")
+  /*  console.log(max);
+    console.log(maxName)*/
+
+
+
+
+
+</script>
+</body>
+</html>

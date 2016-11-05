@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        * { margin: 0; padding: 0;}
+        html,body,#main { height: 100%; overflow: hidden; background-color: #000}
+
+        .fire1 { position: absolute; width: 1px; height: 6px;}
+        .pieces { position: absolute; width: 4px; height: 4px; left: 0; top: 0; }
+
+    </style>
+</head>
+<body>
+<div id="main"></div>
+<script src="move.js"></script>
+<script>
+
+    var oMain = document.getElementById("main");
+
+    //1、当鼠标点击的时候，生成烟火mX，mY
+    document.onclick=function(event){
+        /*创建烟火*/
+        event = event||window.event;
+        var fire1 = new Fire(event.clientX,event.clientY);
+        fire1.init()//初始化
+
+    };
+
+    function Fire(x,y){
+        /*设置烟火的属性*/
+        this.x = x;
+        this.target = y;
+        this.y = document.documentElement.clientHeight;
+        this.pieces = [];//用来保存爆炸产生的小烟火的
+    }
+    Fire.prototype.init=function(){
+        /*创建烟火的html对象*/
+        this.element = document.createElement("div");
+        this.element.className="fire1";
+        this.element.style.backgroundColor=getColor()
+        setCss(this.element,{"left":this.x,"top":this.y})
+        oMain.appendChild(this.element)
+
+        //2、让烟火到达目标值爆炸
+
+        //让烟火运动到目标值
+        var _this = this;
+        fnMove(this.element,{"top":this.target},function(){
+            //运动完成后，爆炸
+           // alert("爆炸")
+            _this.element.style.backgroundColor="#000";
+            _this.boom() //爆炸的方法
+
+        })
+
+    };
+    Fire.prototype.boom=function(){
+        //3、生成碎片
+        this.num = Math.round(Math.random()*40+40);
+        for(var i=0;i<this.num;i++){
+            this.createFire()//创建小烟火
+            //不要去直接操作每一个小烟火
+        }
+        //让所有的烟火的运动
+        this.move()
+
+    };
+    Fire.prototype.createFire=function(){
+
+
+        //this.pieces 碎片
+        var obj = document.createElement("div");
+        obj.className="pieces";
+        obj.style.backgroundColor=getColor();
+
+
+       // 3.1 爆炸：生成随机的x，y的速度(正负值)
+        var num = Math.random()>0.5?1:-1;
+        obj.iSpeedX = parseInt(Math.random()*20)*num;
+        num = Math.random()>0.5?1:-1;
+        obj.iSpeedY = parseInt(Math.random()*20)*num;
+        this.element.appendChild(obj);
+        //把生成的小烟火放在数组里面
+        this.pieces.push(obj);
+    };
+    Fire.prototype.move=function(){
+
+        var _this =this;
+
+        var num = 100;
+        this.timer=setInterval(function(){
+            num-=4;//让透明度递减
+
+            //3.3 逐渐变暗：改变透明度 (让烟火的父节点透明)
+            _this.element.style.opacity=num/100;
+            for(var  i=0;i<_this.num;i++){
+               // _this.pieces[0] 第一个烟火
+                setCss(_this.pieces[i],{"left":_this.pieces[i].offsetLeft+_this.pieces[i].iSpeedX,
+                    "top":_this.pieces[i].offsetTop+_this.pieces[i].iSpeedY
+                })
+
+                //3.2 自由下落 :y的速度递增
+                //自由下落
+                _this.pieces[i].iSpeedY+=2;
+            }
+
+            if(num<=0){/*当透明度为0或小于0，清除定时器*/
+
+                //4、碎片消失，删除
+                clearInterval(_this.timer)
+                oMain.removeChild(_this.element);
+                _this=null;
+                console.log(_this)
+
+            }
+        },40)
+    };
+
+
+
+
+    function setCss(obj,json){
+        for(var attr in json){
+            obj.style[attr] = json[attr]+"px"
+        }
+    }
+    function getColor(){
+        var r = Math.round(Math.random()*200+55);
+        var b = Math.round(Math.random()*255);
+        var g = Math.round(Math.random()*255);
+        return "rgb("+r+","+g+","+b+")"
+    }
+
+
+
+
+</script>
+
+</body>
+</html>

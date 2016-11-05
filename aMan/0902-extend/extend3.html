@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<audio src="TFBOYS%20-%20大梦想家.mp3" id="music" ></audio>
+<button id="btn1">zhangxuan唱歌</button>
+<button id="btn2">yao唱歌</button>
+<script>
+
+
+    function Person(name,sex) {
+        this.name = name;
+        this.sex = sex;
+    }
+    Person.prototype.sayName=function () {
+        alert(this.name)
+    };
+    Person.prototype.setName=function (newName) {
+        this.name = newName
+    };
+
+    function SuperStar(name,sex,skill) {
+        //想要把Person里面的this变成Hero里面的this
+        Person.apply(this,[name,sex]);
+        this.skill = skill;
+    }
+
+    /*复杂 父类的原型方法*/
+    //SuperStar.prototype.sayName = Person.prototype.sayName;
+
+    /*复杂所有父类的原型方法*/
+    for(var attr in Person.prototype){
+        console.log(attr)//sayName ; setName
+        SuperStar.prototype[attr] = Person.prototype[attr]
+    }
+
+
+    SuperStar.prototype.showSkill=function () {
+        oMusic.play();
+        alert("唱歌")
+    };
+
+   var oMusic = document.getElementById("music");
+    var oBtn1 = document.getElementById("btn1");
+    var oBtn2 = document.getElementById("btn2");
+
+
+   // huge.sayName()
+
+    var zhangxuan = new SuperStar("张轩","nan","唱歌");
+    var yao = new Person("瑶","女");
+    console.log(zhangxuan);
+    console.log(yao);
+    oBtn1.onclick=function () {
+        alert(1)
+        zhangxuan.showSkill();
+    };
+
+    oBtn2.onclick=function () {
+        yao.showSkill();
+    };
+
+
+/*原型链*/
+
+
+
+
+</script>
+</body>
+</html>

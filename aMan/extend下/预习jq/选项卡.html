@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {margin: 0; padding: 0}
+        body { padding: 50px;line-height: 30px;text-align: center; }
+        #option { overflow: hidden; border-left: 1px solid #999;}
+        #option li{ list-style: none; float: left; width: 100px; cursor: pointer;
+            border: 1px solid #999; margin:0 0 0 -1px;}
+        #option .active {display: block; background-color: #999; color: #fff}
+        #list { padding: 20px 0;}
+        #list li { display: none; border: 1px solid #999; width: 400px; height: 300px;}
+        #list .active { display: block;}
+    </style>
+</head>
+<body>
+
+<ul id="option">
+    <li class="active">山东在哪?</li>
+    <li>河南在哪?</li>
+    <li>河北在哪?</li>
+    <li>咸阳在哪?</li>
+</ul>
+
+<ul id="list">
+    <li class="active">山东就是在那个山的东边</li>
+    <li>河南就在某条和的南边</li>
+    <li>河北就在某条河北的北边</li>
+    <li>咸阳在哪??????</li>
+</ul>
+
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+
+
+
+    //eq()//是某组元素的下标
+    //siblings（）所有兄弟节点
+    //addClass（） 添加class
+    //removeClass（） 删除class
+    //$(this)//  把this 传给 $()
+    //console.log($('#option li'));
+    //var arr = [2];
+    //$('#option li').pop(1)
+
+
+    $('#option li').click(function(){
+        $(this).addClass('active').siblings().removeClass('active');
+        $('#list li').hide().eq($(this).index()).show()
+    })
+
+</script>
+</body>
+</html>

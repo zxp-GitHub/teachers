@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {margin: 0; padding: 0}
+        #cont { width: 500px; margin-top:20px; padding: 20px; border: 1px solid #666}
+
+        ul { padding: 10px; margin: 20px auto; }
+        li { border-bottom: 1px dashed #ccc; overflow: hidden; padding: 10px; text-indent: 1em; line-height: 2; font-size: 14px;}
+        #cont img { width: 80px; height: 80px; float: left;}
+        .info {float: left; margin-left: 20px;}
+    </style>
+</head>
+<body>
+
+<input type="button" id="btn" value="显示数据" />
+
+<ul id="cont">
+
+    <li>
+        <img src="images/6.png">
+        <div class="info">
+            <p><strong >姓名：同学3</strong></p>
+            <p >爱好：看小说</p>
+        </div>
+    </li>
+
+
+
+</ul>
+
+
+<script src="ajax.js"></script>
+<script>
+    var oBtn = document.getElementById("btn");
+    var oCont =  document.getElementById("cont");
+    oBtn.onclick=function () {
+        var time = new Date().getTime();
+
+        ajax("student-info.json?"+time, function(data){
+            alert("成功");
+            console.log(data);
+            var oData = JSON.parse(data);//把json转换成js对象
+            console.log( oData)
+
+            var str = ""; //拼接li的字符串
+            for(var i=0;i<oData.length;i++){
+                /*数组每循环一次就添加一个li*/
+                str+='<li>' +
+                        '<img src="'+oData[i].headImg+'">' +
+                        '<div class="info">' +
+                            '<p><strong >姓名：'+oData[i].name+'</strong></p>' +
+                            '<p >爱好：'+oData[i].aihao+'</p>' +
+                        '</div>' +
+                    '</li>';
+            }
+            console.log(str);
+
+            /**/
+            oCont.innerHTML =str
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

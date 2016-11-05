@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #cont { width: 300px; height: 200px; border: 1px solid #ccc; padding: 20px;}
+    </style>
+</head>
+<body>
+<button id="btn">添加数据</button>
+<div id="cont"></div>
+<script>
+    var oCont = document.getElementById("cont");
+    var oBtn = document.getElementById("btn");
+
+    oBtn.onclick=function () {
+        var oScript = document.createElement("script");
+        oScript.src = "http://10.9.155.162/old/ajax2/1619jsonp/1.js";
+        document.body.appendChild(oScript);
+    };
+
+    function fn1(data) {
+        oCont.innerHTML = data.name;
+        //console.log(data)
+    }
+
+</script>
+
+</body>
+</html>

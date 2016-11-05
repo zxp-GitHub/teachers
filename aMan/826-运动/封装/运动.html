@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+
+        #div1 {background-color: red; width: 100px; height: 100px; position: absolute; left: 0;  top:0;}
+
+    </style>
+</head>
+<body>
+
+<div id="div1">
+
+</div>
+<script src="base.js"></script>
+<script>
+    var oDiv = $("div1");
+    var timer = null;
+    var iTar = 500; //目标值
+    var iSpeed = 20
+    timer = setInterval(function () {
+        var iL = parseInt(getStyle(oDiv,"left"));
+        oDiv.style.left=iL+iSpeed+"px";
+        if(iL+iSpeed==iTar){
+            clearInterval(timer)
+        }
+    },30)
+
+</script>
+</body>
+</html>

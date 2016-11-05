@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin: 0; padding: 0;}
+        li { list-style: none}
+        ul,#content { width: 500px; margin: 10px auto; border: 1px solid #ccc}
+        #option { height: 40px; line-height: 40px; text-align: center;}
+        #option li { float: left; width: 25%; margin-left: -1px;  border-right: 1px solid #ccc; cursor: pointer}
+        #option .active { background-color: #999; color: #fff}
+        #list { height: 300px; padding: 0 20px;}
+        #list li { display: none; }
+        #list .active { display: block;}
+
+    </style>
+</head>
+<body>
+<ul id="option">
+    <li class="active">山东在哪？</li>
+    <li>山西在哪？</li>
+    <li>河南在哪？</li>
+    <li>河北在哪？</li>
+</ul>
+
+
+
+<ul id="list">
+    <li class="active">山东就是在那个山的东边</li>
+    <li>河南就在某条和的南边</li>
+    <li>河北就在某条河北的北边</li>
+    <li>咸阳在哪??????</li>
+
+</ul>
+
+
+<script src="../base.js"></script>
+<script>
+/*1、获取选项，给选项加事件*/
+    /*1.1获取元素*/
+    var optionWrap = document.getElementById("option");
+    var aOption = optionWrap.getElementsByTagName("li")
+
+    /*1.2给选项加事件*/
+    for(var i=0;i<aOption.length;i++){
+        aOption[i].onclick=function () {
+            //2、让你点击的选项有active的样式，其他的选项都没有
+
+            //2.1先把所有的active样式去掉
+            for(var j = 0;j<aOption.length;j++){
+                aOption[j].className=""
+            };
+
+            //2.2给当前点击的li添加active样式
+            this.className = "active";
+            console.log(this)//this 就是发生事件的元素
+           /* aOption[0].className= "";
+            aOption[1].className= "";
+            aOption[2].className= "";
+            aOption[3].className= "";*/
+
+        }
+    }
+    alert(i)
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+<img src="http://scimg.jb51.net/allimg/160716/105-160G61F250436.jpg" />-->
+<script src="get.js"></script>
+<script>
+    function fn1(data) {
+        console.log(data)
+    }
+
+    //ajax没法跨域请求
+    ajax("http://10.9.155.162/old/ajax2/1619jsonp/1.js",function (data) {
+        console.log(data)
+    })
+</script>
+
+<!--script标签是可以跨域加载js 文件-->
+<script src="http://10.9.155.162/old/ajax2/1619jsonp/1.js"></script>
+
+
+</body>
+</html>

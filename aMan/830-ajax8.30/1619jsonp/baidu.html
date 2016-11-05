@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        * { margin: 0; padding: 0}
+        #wrap { margin: 30px auto; width: 400px; position: relative; }
+        #search-text {  width:400px; text-indent: 10px; border: 1px solid #ccc; height: 20px; padding: 5px 0;}
+        ul { position: absolute; border: 1px solid skyblue; left: 0; width: 400px; top:36px; line-height: 2; }
+        li { list-style: none; text-indent: 10px;}
+        li:hover { background-color: skyblue}
+
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <input type="text" id="search-text"  />
+    <ul id="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</div>
+
+<script>
+    function fnBaidu(data) {
+        var arr = data.s;
+        console.log(data);
+
+        var str = "";
+        for(var i=0;i<arr.length;i++){
+            str+='<li>'+arr[i]+'</li>'
+        }
+        oList.innerHTML = str;
+        if(arr.length==0){
+            oList.style.display="none"
+        }else {
+            oList.style.display="block"
+        }
+    };
+
+    var oText = document.getElementById("search-text");
+    var oList = document.getElementById("list");
+
+    /*当键盘keyup的时候，请求baidu 数据*/
+    oText.onkeyup=function () {
+        console.log(this.value);
+        /*创建一个js表，了加载百度返回的内容*/
+        var oScript = document.createElement("script");
+        oScript.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+this.value+"&cb=fnBaidu";
+        document.body.appendChild(oScript)
+
+    }
+
+</script>
+
+
+
+</body>
+</html>

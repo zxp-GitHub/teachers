@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+
+
+<button>button</button>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+
+    $("button").click(function () {
+
+
+        var obj = {"page":page,"pageRows":6,"sortType":2,"sort":1};
+         var json = JSON.stringify(obj);
+         ajax("http://www.setfarm.com/index.php/Api/Api","CODE=125&JSON="+json,function (data) {
+             console.log(typeof data)
+         });
+
+        var obj = {"page":2,"pageRows":10,"sortType":2,"sort":1};
+        var json = JSON.stringify(obj);
+
+        $.get("http://www.setfarm.com/index.php/Api/Api",{CODE:125,JSON:json},function (data) {
+            console.log(typeof data)
+        })
+    })
+
+
+
+</script>
+</body>
+</html>
+
+<!--
+	瀑布流，熟悉jq的ajax用法，完善轮播图
+
+-->

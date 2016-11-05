@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1 { width: 100px; height: 100px; background-color: red;}
+    </style>
+
+    <script>
+  function $(arg1) {
+      //var arg1 = arguments[0];
+      /*如果参数是一个方法，那就等页面加载完成以后执行*/
+      if(typeof arg1 === "function"){
+          window.onload=arg1;//window.addEventListener( "load",arg1);
+          //document.addEventListener( "DOMContentLoaded",arg1);
+      }else if(typeof arg1 === "string"){
+          /*如果是字符串*/
+          var elements = []
+          if(arg1.charAt(0)==="#"){
+              console.log("id");
+
+              elements[0] = document.getElementById(arg1.substring(1))
+          }else if(arg1.charAt(0)==="."){
+              console.log("className");
+
+              elements =  document.getElementsByClassName(arg1.substring(1))
+          }else {
+              console.log("tagName");
+              elements =  document.getElementsByTagName(arg1)
+          }
+          //$的作用时获取元素elements
+
+          return new Init(elements);
+          //return Init的一个实例
+      }
+  }
+
+
+   Init = function (elements) {
+        for(var i =0;i<elements.length;i++){
+
+            this[i] = elements[i]
+        }
+        this.length = elements.length;
+        
+    };
+  Init.prototype.click=function (fn) {
+        //给所有的li加点击事件
+      for(var i=0;i<this.length;i++){
+          console.log(this[i])//li
+          this[i].onclick=fn//li被点击的时候 执行
+      }
+  };
+  Init.prototype.css=function (attr,value) {
+      //给所有的li加点击事件
+      for(var i=0;i<this.length;i++){
+          console.log(this[i])//li
+          this[i].style[attr] = value
+      }
+  };
+  
+    $(function () {
+        var $li = $("li");// return new Init(elements);
+        console.log($li)
+        $li.click(function () {
+            alert(1)
+        });
+        $li.css("background","red")
+    });
+        /*$("div1").click(function () {
+            alert(1)
+        })*/
+
+    </script>
+</head>
+<body>
+
+<div id="div1"></div>
+<ul class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+
+</body>
+</html>

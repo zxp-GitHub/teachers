@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+var obj1 = new  Object();//obj1.__proto__===Object.prototype
+obj1.a =function () {
+
+};
+
+
+/*console.log("Object的原型:");
+console.log(Object.prototype);
+    console.log(obj1.toString())*/
+
+
+function Person() {
+    
+}
+
+
+
+var obj2 = new Person();  //obj2.__proto__===Person.prototype
+obj2.a =function () {
+
+};
+obj2.toString=2;
+Person.prototype.toString = 1;
+console.log(Person.prototype.__proto__);//Object.prototype
+
+/*
+var PersonProto = new  Object();
+Person.prototype = new  Object();
+PersonProto.__proto__ = Object.prototype*/
+
+    console.log(obj2)
+    
+    
+    
+    
+</script>
+</body>
+</html>

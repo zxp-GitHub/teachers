@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<ul id="wrap">
+    <li><h3>说给自己听</h3></li>
+    <li><p>--------三毛</p></li>
+    <li><p>如果有来生，</p></li>
+    <li><p>要做一棵树，</p></li>
+    <li class="li4"><p>站成永恒， </p></li>
+    <li><p>没有悲欢的姿势。 </p></li>
+    <li><p>一半在尘土里安详，</p></li>
+    <li><p data-id="2">一半在风里飞扬， </p></li>
+    <li><p data-id="1">一半洒落阴凉， </p></li>
+    <li><p data-id="3">一半沐浴阳光。</p></li>
+    <li><p>非常沉默非常骄傲 </p></li>
+    <li>
+        <p data-id="2">从不依靠 </p>
+        <a>从不寻找</a>
+    </li>
+</ul>
+
+<script>
+   /* $("li:first").css("color","#ff0000");
+    $("li:last").css("color","#ff0000");*/
+    //$("li:lt(4)").css("color","#ff0000");
+   //$("li:empty").css("background","#ff0000");
+    //$("p[data-id=2]").css("color","#ff0000");
+    $("li").not(".li4").css("color","#ff0000");
+
+
+</script>
+
+
+</body>
+</html>

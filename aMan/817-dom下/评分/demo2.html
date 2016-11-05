@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+    <style>
+        * { margin: 0; padding: 0;}
+        #star { margin: 20px auto; width: 150px; overflow: hidden}
+        li { list-style: none; float: left; background: url("star.gif") no-repeat 0 0; height: 28px; width: 27px; cursor: pointer}
+        .selected { background-position: 0 -29px;}
+
+    </style>
+
+</head>
+
+<body>
+
+<ul id="star">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+<script>
+    /*获取星星*/
+    var aLi = document.getElementsByTagName("li");
+    /*给星星加鼠标移入事件*/
+
+    /*保存aLi的下标*/
+    for(var i=0;i<aLi.length;i++){
+        aLi[i].index = i;
+    }
+
+    for(var i=0;i<aLi.length;i++){
+
+        aLi[i].onmouseover=function () {
+            /*当鼠标移入星星的时候，
+            1、让自己和比他下标小的都变亮
+             2、让比他下标大的都不亮*/
+
+            //要找到鼠标移入的星星的下标
+            //this =>鼠标移入的星星
+            //this =>鼠标移入的星星的下标
+            //console.log(this.index)
+
+            /*把所有的星星拿过来，循环一下，对比下标*/
+            for(var j=0;j<aLi.length;j++){
+                if(j<=this.index){
+                    //自己和比他下标小
+                    console.log(j);
+                    aLi[j].className = "selected";
+                }else {
+                    //比自己下标大的星星
+                    aLi[j].className = "";
+                }
+            }
+        }
+    }
+    
+</script>
+</body>
+</html>

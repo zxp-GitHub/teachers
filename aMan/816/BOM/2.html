@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div { width: 100px; height: 100px; background-color: #ccc; margin: 40px;}
+        #go-top {  position: fixed; bottom: 10px; right: 10px; width: 80px; line-height: 60px; background-color: skyblue; text-align: center; display: none }
+    </style>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div><a href="1.html">跳转页面</a></div>
+<div></div>
+<a id="go-top" href="javascript:;">返回顶部</a>
+<script>
+
+    //backgroundColor
+    var oGoTop = document.getElementById("go-top");
+
+    window.onscroll=function () {
+        //var iScrollTop = document.body.scrollTop;
+        var iScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+        /*判断滚动高度，如果大于300就显示返回顶部按钮，否则就隐藏*/
+        if(iScrollTop>300){
+            oGoTop.style.display = "block";
+        }else {
+            oGoTop.style.display = "none";
+        }
+
+
+        console.log(iScrollTop);
+       /*console.log(document.body.scrollTop); //谷歌
+        console.log(document.documentElement.scrollTop)*/
+    };
+
+    oGoTop.onclick=function () {
+
+       /* var a = 1;
+        var b = a;
+        b  = 3;
+
+
+        var iScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        iScrollTop =0;*/
+        console.log(this);
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
+
+</body>
+</html>

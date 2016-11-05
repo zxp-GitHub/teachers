@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>随机点名</title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				font-family:微软雅黑;
+			}
+			#call{
+				width:500px;
+				height:300px;
+				line-height:300px;
+				border:solid 8px #FF6600;
+				font-size:78px;
+				text-align:center;
+				margin:50px auto;
+				text-shadow:1px 1px 6px #CC9747;
+			}
+			.divbtn{
+				margin:10px auto;
+				width:120px;
+			}
+			input{
+				width:120px;
+				height:48px;
+			}
+		</style>
+		<script>
+			onload = function(){
+				var arr = ["王明明","毛昊宇","张志政","高帅","王静","杨鹏","李炎朋","赵亭亭","王伟",
+					   "宋晓佩","高堂红","粟玉仓","史月娟","宋企正","周宇","郎鹏","白冰","徐大成","侯昊宇","王刚","刘泽敏","杨道春","王金祝"
+					   ,"贾鑫杰","赵君超","魏伟","双立东","罗楠","苗阳","宗强","李易","张斌","马威振","蒋勇","刘亚鹏","李明星","刘存亮","马锐"
+					   ,"边志伟","李秋","仲程","孙金鹏","李智","刘晓真","王瑞琪","谌璇","任自力","马云龙","田昆","王一奇","杨旭","张朝源","袁龙涛"
+					   ,"张新宇","郑凯文","赵博健","陈赫","朱瑞宏","魏益虎","黄京博","畅飞","郑学光","王怀勤","王娇","王亮亮","王海洋","张丙锋"
+					   ,"孟彦京","吴赞立","杜鑫"];
+				var isCall = true;
+				
+				function callName(){
+					var index = parseInt(Math.random() * arr.length);
+					call.innerHTML = arr[index];
+				}
+				
+				var timer;
+				callbtn.onclick = function(){
+					if(isCall){
+						callbtn.value = "暂停点名";
+						isCall = false;
+						//间歇定时器
+						//第一个参数：反复调用的函数执行上下文
+						//第二个参数：间隔时间(单位是毫秒)
+						//间歇定时器函数的返回值是定时编号
+						timer = setInterval(callName,200);
+					}
+					else{
+						callbtn.value = "开始点名";
+						isCall = true;
+						clearInterval(timer);
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="call">
+			请开始点名
+		</div>
+		<div class="divbtn">
+			<input type="button" value="开始点名" id="callbtn" />
+		</div>
+	</body>
+</html>

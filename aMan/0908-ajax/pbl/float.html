@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: #f3f2f3;
+			}
+			#main {
+				border: 1px solid red;
+				width: 1225px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			.list {
+				width: 245px;
+				float: left;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="main">
+			<div class="list"></div>
+			<div class="list"></div>
+			<div class="list"></div>
+			<div class="list"></div>
+
+		</div>
+		<div id="load">加载</div>
+
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript">
+
+			var json = [];
+			var oLoad = $("#load");
+
+
+			//加载数据
+			$.get('pbl.json', {},function(data) {
+				json = data;
+
+				addData();
+			});
+
+			 //无限加载
+
+			$(window).scroll(function() {
+				var iH = $(window).height(); //窗口高度
+				var iT = $(window).scrollTop();//
+
+				if (iH + iT >= oLoad.offset().top) {
+					addData();
+				}
+			});
+		
+			 //加载方法
+			function addData() {
+				var div = ""; //要添加的图片
+				for (var i = 0; i < json.length; i++) {
+					div = '<div><img src="' +json[i].src + '" height="' + json[i].height + '" width="230px"></div>';
+					getList($(".list")).append(div);
+					// alert(div); 如果不添加为 ""的div会每次循环都带上之前的
+				}
+			}
+				//寻找list obj传入5个list比较高度
+
+			function getList(obj) {
+				var index = 0; //最小list的下标，假设第一个的高度最小
+				var h = obj.eq(0).height(); //最小高度，假设为第一个
+				for (var i = 1; i < obj.length; i++) {
+					if (obj.eq(i).height() < h) { // 比假设的最小的要小
+						index = i; //比他小更新他
+						h = obj.eq(i).height();
+					}
+				}
+//				alert(index)
+				return obj.eq(index);
+			}
+		</script>
+	</body>
+
+</html>

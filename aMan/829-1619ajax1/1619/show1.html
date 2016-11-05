@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #cont { width: 500px; margin-top:20px;height: 400px; border: 1px solid #666}
+    </style>
+</head>
+<body>
+
+<input type="submit" id="btn" value="显示数据" />
+
+<div id="cont"></div>
+
+
+<script src="ajax.js"></script>
+<script>
+    var oBtn = document.getElementById("btn");
+    var oCont =  document.getElementById("cont");
+    oBtn.onclick=function () {
+        //显示数据
+        //ajax(url, fnSucc, fnFaild)
+        //url 是文件的地址
+        //fnSucc 访问文件成功以后的方法
+        //fnFaild 访问文件失败以后的方法
+        var time = new Date().getTime();
+
+        ajax("test.txt?"+time, function(data){
+            alert("成功");
+            console.log(data);
+            oCont.innerHTML = data;
+
+        });
+
+        //问题: 1、编码问题，把文件编码格式设置成utf-8
+                //2、缓存问题(跟浏览器设置有关，有些浏览器没有缓存)，在文件的地址后面加"?111"(加问号不会改变对文件本身的访问，但是可以改变访问的地址)
+    }
+
+</script>
+
+</body>
+</html>

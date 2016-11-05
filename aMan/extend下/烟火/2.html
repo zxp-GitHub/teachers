@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        * { margin: 0; padding: 0;}
+        html,body{
+            width:100%;
+            height:100%;
+            background:black;
+            overflow:hidden;
+        }
+        .fire1 { position: absolute; width: 1px; height: 10px;  border-radius: 2px;}
+        .fire2 { position: absolute; width: 4px; height: 4px;border-radius:50%; }
+    </style>
+</head>
+<body>
+
+<script src="move.js"></script>
+<script>
+
+    document.onclick=function(event){
+        event = event||window.event;
+        var obj = new Fire1(event.clientX,event.clientY);
+        obj.init();
+    };
+    function Fire1(x,y){
+        this.x = x;
+        this.target = y;
+        this.y = document.documentElement.clientHeight;
+    }
+    Fire1.prototype.init=function(){
+        this.element=document.createElement("div");
+        this.element.style.left=this.x+"px";
+        this.element.style.top=this.y+"px";
+        this.element.className="fire1";
+        this.element.style.backgroundColor = createColor();
+        document.body.appendChild(this.element);
+        var _this = this;
+        fnMove(_this.element,{"top":this.target},function(){
+            document.body.removeChild(_this.element);
+
+            var boom = new Fire2(_this.x,_this.target);
+
+            boom.init();
+            _this= null;
+
+        })
+
+    };
+    /*小烟花*/
+    function Fire2(x,y){
+        this.x = x;
+        this.y = y;
+    }
+    Fire2.prototype.init=function() {
+        this.element = document.createElement("div");
+        this.element.style.left = this.x + "px";
+        this.element.style.top = this.y + "px";
+        this.element.className = "fire2";
+        document.body.appendChild(this.element);
+
+        this.num = parseInt(Math.random() * 40 + 40);
+        this.Pieces = [];
+        for (var i = 0; i < this.num; i++) {
+            var temp = document.createElement("div");
+            temp.style.left = 0 + "px";
+            temp.style.top = 0+ "px";
+            temp.className = "fire2";
+            temp.style.backgroundColor = createColor();
+            temp.iSpeedX = Math.random() > 0.5 ? Math.ceil(Math.random() * 20) : Math.ceil(Math.random() * 20) * -1;
+            temp.iSpeedY = Math.random() > 0.5 ? Math.ceil(Math.random() * 20) : Math.ceil(Math.random() * 20) * -1;
+            this.element.appendChild(temp);
+            this.Pieces.push(temp);
+        }
+        ;
+        this.rot = 100;
+        this.move();
+    }
+    Fire2.prototype.move=function(){
+
+        var _this = this;
+
+        setTimeout(function(){
+            _this.rot-=4;
+
+            if(_this.rot<=0){
+                document.body.removeChild(_this.element)
+                _this = null;
+            }else {
+                _this.element.style.opacity = _this.rot/100;
+                for(var i=0;i<_this.num;i++){
+                    _this.Pieces[i].style.left=_this.Pieces[i].offsetLeft+_this.Pieces[i].iSpeedX+"px";
+                    _this.Pieces[i].style.top=_this.Pieces[i].offsetTop+_this.Pieces[i].iSpeedY+"px";
+                    _this.Pieces[i].iSpeedY+=2;
+
+                }
+                _this.move()
+            }
+        },40)
+    }
+
+    function createColor(){
+        var r = Math.round(Math.random()*200+55);
+        var b = Math.round(Math.random()*255);
+        var g = Math.round(Math.random()*255);
+        return "rgb("+r+","+g+","+b+")"
+    }
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

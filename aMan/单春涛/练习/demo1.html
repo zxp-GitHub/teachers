@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    *{padding:0; margin:0;}
+    li{list-style:none;}
+    ul li{float:left;width:120px; height:30px; text-align:center; line-height:30px; border:1px solid gray; background:skyblue;}
+
+    ol li{background:deepskyblue;}
+    ul li ol{overflow:hidden; height:0px;}
+    ul li ol li{ position:relative;}
+    ul li ol li ol{ position:absolute; left:120px; top:0px; width:0px; height:90px; overflow:hidden;}
+    ul li ol li ol li{  background:blue; width:120px;}
+</style>
+<script src="move.js"></script>
+<script>
+    window.onload=function(){
+        var nav=document.getElementsByTagName("ul")[0].children;//ul>li
+        for(var i=0; i<nav.length; i++){
+            nav[i].onmouseover=function(){
+                var ol=this.children[0];//ul>li>ol
+                var aLi=ol.children;//ul>li>ol>li
+                fnMove(ol, {height:aLi.length*30});  //二级菜单效果
+                for(var j=0; j<aLi.length; j++){
+                    aLi[j].onmouseover=function(){
+                        var ol=this.children[0];//ul>li>ol>li>ol
+                        this.parentNode.style.overflow = "visible"; //溢出部分撑开显示
+                        fnMove(ol, {width:120});    //三级菜单效果
+                    }
+                    aLi[j].onmouseout=function(){
+                        var ol=this.children[0];
+                        fnMove(ol, {width:0});   //三级菜单鼠标离开
+                    }
+                }
+            }
+            nav[i].onmouseout=function(){
+                var ol=this.children[0];
+                ol.style.overflow="hidden"; //溢出部分隐藏
+                fnMove(ol, {height:0});    //二级菜单鼠标离开
+            }
+        }
+    }
+</script>
+</head>
+<body>
+<ul>
+    <li>中国
+        <ol>
+            <li>河南
+                <ol>
+                    <li>郑州</li>
+                    <li>洛阳</li>
+                    <li>开封</li>
+                </ol>
+            </li>
+            <li>河北
+                <ol>
+                    <li>石家庄</li>
+                    <li>保定</li>
+                </ol>
+            </li>
+            <li>山东
+                <ol>
+                    <li>济南</li>
+                    <li>青岛</li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li>美国
+        <ol>
+            <li>加州
+                <ol>
+                    <li>城市</li>
+                    <li>乡村</li>
+                </ol>
+            </li>
+            <li>华盛顿州
+                <ol>
+                    <li>城市</li>
+                    <li>乡村</li>
+                </ol>
+            </li>
+            <li>德克萨斯州
+                <ol>
+                    <li>城市</li>
+                    <li>乡村</li>
+                </ol>
+            </li>
+            <li>xxxxx
+                <ol>
+                    <li>城市</li>
+                    <li>乡村</li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li>英国
+        <ol>
+            <li>英格兰
+                <ol>
+                    <li>城市</li>
+                    <li>乡村</li>
+                </ol>
+            </li>
+            <li>苏格兰
+                <ol>
+                    <li>城市</li>
+                    <li>乡村</li>
+                </ol>
+            </li>
+            <li>威尔士
+                <ol>
+                    <li>城市</li>
+                    <li>乡村</li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+    /*$.getJSON("pbl.json",function (data) {
+        console.log(data)
+    })*/
+
+
+    //jsonp 需要在url后+?callback=?
+    $.getJSON("http://www.wookmark.com/api/json/popular?callback=?",{page:2},function (data) {
+        console.log(data)
+    })
+    //589206_wookmark.png
+    //617942_wookmark.jpg
+
+</script>
+</body>
+</html>

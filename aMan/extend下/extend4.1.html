@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+
+    function Person(name,sex) {
+        this.name = name;
+        this.sex = sex;
+    }
+    Person.prototype.sayName=function () {
+        alert(this.name)
+    };
+   // new Person()
+    //{
+    // name:undefined
+     // sex:undefined
+    /// __proto__:Person.prototype
+    // }
+
+    /*继承私有属性*/
+    function SuperStar(name,sex,skill) {
+        //想要把Person里面的this变成Hero里面的this
+        Person.apply(this,[name,sex]);
+        this.skill = skill;
+    }
+    /*继承原型属性*/
+    SuperStar.prototype = new Person();//让SuperStar的原型等于了一个新的对象constructor被干掉了
+    //SuperStar.prototype={
+    // name:undefined
+    // sex:undefined
+    /// __proto__:Person.prototype
+    // }
+    SuperStar.prototype.constructor = SuperStar;//把constructor再加回去
+
+
+    SuperStar.prototype.showSkill=function () {
+        alert("唱歌")
+    };
+
+    var zhangXuan = new SuperStar("张轩","男","唱歌");
+    console.log(SuperStar.prototype)
+    console.log(zhangXuan.constructor);
+
+
+
+
+    
+
+
+
+/*原型链*/
+
+
+
+
+</script>
+</body>
+</html>

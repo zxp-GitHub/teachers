@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<a href="form.html" id="link1">form 走</a>
+<script>
+    
+    
+    document.getElementById("link1").onclick=function (event) {
+        //return false;
+        /*事件兼容*/
+        event = event || window.event;
+        /*阻止默认行为*/
+        event.preventDefault(); //非IE
+        event.returnValue = false;   //IE
+
+        console.log(111);
+
+    }
+</script>
+</body>
+</html>

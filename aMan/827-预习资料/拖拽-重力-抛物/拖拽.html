@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<style>
+body, div { margin:0; padding:0;}
+#div1 { width:100px; height:100px; background:url("cc.gif"); background-size: 100% 100%; position:absolute;}
+
+</style>
+<script>
+window.onload=function ()
+{
+
+	var oDiv=document.getElementById('div1');
+
+	
+	oDiv.onmousedown=function (ev)
+	{
+		var oEvent=ev||event;
+		
+		var disX=oEvent.clientX-oDiv.offsetLeft;
+		var disY=oEvent.clientY-oDiv.offsetTop;
+		
+		document.onmousemove=function (ev)
+		{
+			var oEvent=ev||event;
+
+			/*计算出left和 top值*/
+			var l=oEvent.clientX-disX;
+			var t=oEvent.clientY-disY;
+
+            /*给div赋值*/
+			oDiv.style.left=l+'px';
+			oDiv.style.top=t+'px';
+
+			
+			//document.title='x:'+iSpeedX+', y:'+iSpeedY;
+		};
+		
+		document.onmouseup=function ()
+		{
+			document.onmousemove=null;
+			document.onmouseup=null;
+		};
+
+	};
+};
+
+
+</script>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>

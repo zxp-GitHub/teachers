@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        /** {margin: 0; padding: 0;}
+        li { list-style: none}
+        .nav { height: 30px; margin: 20px auto; width:606px; }
+        .nav-item {   height: 30px; line-height: 30px; width: 100px; float: left; text-align: center; background-color: #555; color: #fff; border: 1px solid #ccc; margin-left: -1px;}
+        .item-list { display: none; width: 100%; top: 30px;
+            left: 0;background-color: #222;}*/
+            a{color: salmon; text-decoration: none;
+           transition: all 3s ease-in-out; transform: scale(1);}
+        a:hover{
+        	
+        	
+        	
+      transform: scale(1.2);
+        	
+        	
+        	
+        }
+        .nav-item:hover .item-list {display: block}
+    </style>
+</head>
+<body>
+
+<ul class="nav">
+    <li class="nav-item">
+        <p>首页</p>
+        <ul class="item-list">
+            <li><a href="###">首页1</a></li>
+            <li><a href="###">首页1</a></li>
+            <li><a href="###">首页1</a></li>
+            <li><a href="###">首页1</a></li>
+        </ul>
+    </li>
+    <!--<li class="nav-item">
+        <p>商城</p>
+        <ul class="item-list">
+            <li>商城1</li>
+            <li>商城2</li>
+            <li>商城3</li>
+            <li>商城4</li>
+        </ul>
+    </li>
+    <li class="nav-item">
+        <p>美食</p>
+        <ul class="item-list">
+            <li>美食1</li>
+            <li>美食1</li>
+            <li>美食1</li>
+            <li>美食1</li>
+            <li>美食1</li>
+            <li>美食1</li>
+        </ul>
+    </li>
+    <li class="nav-item">
+        <p>服装</p>
+        <ul class="item-list">
+            <li>服装1</li>
+            <li>服装1</li>
+            <li>服装1</li>
+
+        </ul>
+    </li>
+    <li class="nav-item">
+        <p>抢购</p>
+        <ul class="item-list">
+            <li>抢购</li>
+            <li>抢购</li>
+
+        </ul>
+    </li>
+    <li class="nav-item">
+        <p>个人中心</p>
+        <ul class="item-list">
+            <li>钱包</li>
+            <li>支付</li>
+            <li>订单</li>
+            <li>收藏</li>
+        </ul>
+    </li>-->
+</ul>
+<script src="jquery-1.11.0.js"></script>
+<script>
+    $(".nav-item").hover(function () {
+        $(this).find(".item-list").stop().slideDown()
+    },function () {
+        $(this).find(".item-list").stop().slideUp()
+    })
+
+</script>
+</body>
+</html>

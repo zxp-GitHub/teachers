@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    
+    
+    
+    function fn1() {
+        var name = "江姐";
+
+        return {
+            setName:function (newName) {
+                //[[scope:  fn1=>name]]
+                name = newName
+            },
+            sayName:function () {
+                //[[scope:  fn1=>name]]
+                alert(name)
+            }
+        }
+
+    }
+
+    var obj =fn1();
+    obj.setName("胡歌");
+    obj.sayName();
+ /*   obj = null;
+    obj= undefined;*/
+    console.log(obj);
+
+  ///  var obj2 = fn1()
+</script>
+</body>
+</html>
